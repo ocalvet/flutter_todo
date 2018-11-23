@@ -23,6 +23,11 @@ class _HomePageState extends State<HomePage> {
 
   completeTodo(todo) {
     return (bool completed) {
+      int index = _todos.indexOf(todo);
+      setState(() {
+        Todo oldTodo = _todos[index];
+        _todos[index] = Todo(oldTodo.title, oldTodo.description, completed);
+      });
     };
   }
 
