@@ -4,13 +4,20 @@ import 'package:flutter_todo/todo.dart';
 class TodosPage extends StatelessWidget {
   final List<Todo> _todos;
   final Function _completeTodo;
-  TodosPage(this._todos, this._completeTodo);
+  final Function _filterTodos;
+  TodosPage(this._todos, this._completeTodo, this._filterTodos);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Todos'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.filter_list),
+            onPressed: _filterTodos
+          )
+        ],
       ),
       body: ListView(
         children: _todos.map((todo) => ListTile(
