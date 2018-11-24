@@ -12,21 +12,26 @@ class TodosPage extends StatelessWidget {
         title: Text('Todos'),
         actions: <Widget>[
           StoreConnector<TodosAppState, Function>(
-              converter: (store) => () => store.dispatch(FilterTodosAction),
+              converter: (store) => () => store.dispatch(FilterTodosAction()),
               builder: (context, _filterTodos) {
                 return IconButton(
                     icon: Icon(Icons.filter_list), onPressed: _filterTodos);
               })
         ],
       ),
-      body: StoreConnector<TodosAppState, List<Todo>>(
-        converter: (store) => store.state.todos,
-        builder: (context, _todos) => ListView(
-              children: _todos
+      body: StoreConnector<TodosAppState, TodosPageViewModel>(
+        converter: (store) => TodosPageViewModel(
+              todos: store.state.todos,
+              markComplete: (todo) => (value) {
+                    store.dispatch(MarkTodoCompletedAction(todo: todo));
+                  },
+            ),
+        builder: (context, todosViewModel) => ListView(
+              children: todosViewModel.todos
                   .map((todo) => ListTile(
                         leading: Checkbox(
                             value: todo.completed,
-                            onChanged: (v) => print('Implement complete todo')),
+                            onChanged: todosViewModel.markComplete(todo)),
                         title: Text(todo.title,
                             style: todo.completed
                                 ? TextStyle(
@@ -50,4 +55,10 @@ class TodosPage extends StatelessWidget {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class TodosPageViewModel {
+  final List<Todo> todos;
+  final Function markComplete;
+  TodosPageViewModel({this.todos, this.markComplete});
 }
