@@ -2,10 +2,10 @@ import 'package:flutter_todo/redux/todos_actions.dart';
 import 'package:flutter_todo/redux/todos_state.dart';
 import 'package:flutter_todo/todo.dart';
 
-TodosAppState reducer(TodosAppState state, action) {
+TodosAppState todosReducer(TodosAppState state, action) {
   if (action is AddTodoAction) {
     return TodosAppState(
-      todos: List.from(state.todos)..add(
+      allTodos: List.from(state.allTodos)..add(
         Todo(
           action.title, 
           action.description,
@@ -19,12 +19,12 @@ TodosAppState reducer(TodosAppState state, action) {
     var oldTodo = state.todos[todoIdx];
     state.todos[todoIdx] = Todo(oldTodo.title, oldTodo.description, !oldTodo.completed);
     return TodosAppState(
-      todos: List.from(state.todos),
+      allTodos: List.from(state.todos),
       showCompleted: state.showCompleted,
     );
   } else if (action is FilterTodosAction) {
     return TodosAppState(
-      todos: state.todos,
+      allTodos: state.todos,
       showCompleted: !state.showCompleted,
     );
   }

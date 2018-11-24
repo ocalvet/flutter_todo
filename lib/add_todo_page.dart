@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_todo/redux/todos_state.dart';
+import 'package:flutter_todo/redux/todos_actions.dart';
 
 class AddTodoPage extends StatefulWidget {
-  final Function _addTodo;
-  AddTodoPage(this._addTodo);
   @override
   _AddTodoPageState createState() => _AddTodoPageState();
 }
@@ -42,14 +43,17 @@ class _AddTodoPageState extends State<AddTodoPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          widget._addTodo(titleCtrl.text, descCtrl.text);
-          Navigator.pop(context);
-        },
-        tooltip: 'Save Todo',
-        child: Icon(Icons.save),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: StoreConnector<TodosAppState, Function>(
+        converter: (store) => (title, desc) => store.dispatch(AddTodoAction(title: title, description: desc)),
+        builder: (context, _addTodo) => FloatingActionButton(
+            onPressed: () {
+              _addTodo(titleCtrl.text, descCtrl.text);
+              Navigator.pop(context);
+            },
+            tooltip: 'Save Todo',
+            child: Icon(Icons.save),
+          ),
+        ),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

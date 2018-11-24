@@ -1,32 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_todo/redux/todos_state.dart';
+import 'package:flutter_todo/redux/todos_actions.dart';
 import 'package:flutter_todo/todo.dart';
 
 class TodosPage extends StatelessWidget {
-  final List<Todo> _todos;
-  final Function _completeTodo;
-  final Function _filterTodos;
-  TodosPage(this._todos, this._completeTodo, this._filterTodos);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Todos'),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.filter_list),
-            onPressed: _filterTodos
-          )
+          StoreConnector<TodosAppState, Function>(
+              converter: (store) => () => store.dispatch(FilterTodosAction),
+              builder: (context, _filterTodos) {
+                return IconButton(
+                    icon: Icon(Icons.filter_list), onPressed: _filterTodos);
+              })
         ],
       ),
-      body: ListView(
-        children: _todos.map((todo) => ListTile(
-          leading: Checkbox(
-            value: todo.completed, 
-            onChanged: _completeTodo(todo)),
-          title: Text(todo.title, style: todo.completed ? TextStyle(decoration: TextDecoration.lineThrough) : null),
-          subtitle: Text(todo.description, style: todo.completed ? TextStyle(decoration: TextDecoration.lineThrough) : null),
-        )).toList(),
+      body: StoreConnector<TodosAppState, List<Todo>>(
+        converter: (store) => store.state.todos,
+        builder: (context, _todos) => ListView(
+              children: _todos
+                  .map((todo) => ListTile(
+                        leading: Checkbox(
+                            value: todo.completed,
+                            onChanged: (v) => print('Implement complete todo')),
+                        title: Text(todo.title,
+                            style: todo.completed
+                                ? TextStyle(
+                                    decoration: TextDecoration.lineThrough)
+                                : null),
+                        subtitle: Text(todo.description,
+                            style: todo.completed
+                                ? TextStyle(
+                                    decoration: TextDecoration.lineThrough)
+                                : null),
+                      ))
+                  .toList(),
+            ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
