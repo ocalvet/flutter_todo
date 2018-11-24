@@ -8,18 +8,26 @@ class TodosBloc {
     _todosSubject.stream,
     _showCompleted.stream,
     (List<Todo> todos, bool showCompleted) {
-      return showCompleted ? todos : todos.where((todo) => !todo.completed);
+      print('getting... todos ${todos.length} - $showCompleted');
+      List<Todo> alltodos = showCompleted ? todos : todos.where((todo) => !todo.completed).toList();
+      return alltodos;
     });
   Observable<bool> get showCompleted$ => _showCompleted.stream;
   
   addTodo(title, description) async {
-    var todos = await this._todosSubject.last;
+    print('adding todo $title');
+    var todos = await this._todosSubject.first;
     List<Todo> newListTodos = List.from(todos)..add(Todo(title, description, false));
     _todosSubject.sink.add(newListTodos);
   }
 
+  filterTodos() async {
+    var showCompleted = await this._showCompleted.first;
+    _showCompleted.sink.add(!showCompleted);
+  }
+
   markTodo(Todo todo) async {
-    var todos = await this._todosSubject.last;
+    var todos = await this._todosSubject.first;
     var oldTodo = todos.firstWhere((t) => t.title == todo.title);
     var oldTodoIdx = todos.indexOf(oldTodo);
     todos[oldTodoIdx] = Todo(oldTodo.title, oldTodo.description, !oldTodo.completed);
@@ -28,6 +36,7 @@ class TodosBloc {
   }
 
   dispose() {
+    print('disposing');
     _todosSubject.close();
     _showCompleted.close();
   }

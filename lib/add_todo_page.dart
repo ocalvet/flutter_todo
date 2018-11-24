@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_todo/redux/todos_state.dart';
-import 'package:flutter_todo/redux/todos_actions.dart';
 import 'package:flutter_todo/todos_bloc.dart';
 
 class AddTodoPage extends StatefulWidget {
