@@ -15,11 +15,11 @@ TodosAppState todosReducer(TodosAppState state, action) {
       showCompleted: state.showCompleted,
     );
   } else if (action is MarkTodoCompletedAction) {
-    var todoIdx = state.todos.indexOf(action.todo);
-    var oldTodo = state.todos[todoIdx];
-    state.todos[todoIdx] = Todo(oldTodo.title, oldTodo.description, !oldTodo.completed);
+    Todo oldTodo = state.allTodos.firstWhere((t) => t.title == action.todo.title);
+    int todoIdx = state.allTodos.indexOf(oldTodo);
+    state.allTodos[todoIdx] = Todo(oldTodo.title, oldTodo.description, !oldTodo.completed);
     return TodosAppState(
-      allTodos: List.from(state.todos),
+      allTodos: List.from(state.allTodos),
       showCompleted: state.showCompleted,
     );
   } else if (action is FilterTodosAction) {
