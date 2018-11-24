@@ -12,9 +12,8 @@ class TodoApp extends StatelessWidget {
       ),
       home: TodosPage(),
       routes: <String, WidgetBuilder>{
-        //5
-        '/home': (BuildContext context) => TodosPage(), //6
-        '/add-todo': (BuildContext context) => AddTodoPage() //7
+        '/home': (BuildContext context) => TodosPage(),
+        '/add-todo': (BuildContext context) => AddTodoPage(),
       },
     );
   }

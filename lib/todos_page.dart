@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_todo/redux/todos_state.dart';
 import 'package:flutter_todo/redux/todos_actions.dart';
 import 'package:flutter_todo/todo.dart';
+import 'package:flutter_todo/todos_bloc.dart';
 
 class TodosPage extends StatelessWidget {
   @override
@@ -11,27 +12,23 @@ class TodosPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Todos'),
         actions: <Widget>[
-          StoreConnector<TodosAppState, Function>(
-              converter: (store) => () => store.dispatch(FilterTodosAction()),
-              builder: (context, _filterTodos) {
-                return IconButton(
-                    icon: Icon(Icons.filter_list), onPressed: _filterTodos);
-              })
+          StreamBuilder(
+            stream: todosBloc.todos$,
+            builder: (context, snapshot) {
+              return IconButton(
+                  icon: Icon(Icons.filter_list), 
+                  onPressed: () {});
+            })
         ],
       ),
-      body: StoreConnector<TodosAppState, TodosPageViewModel>(
-        converter: (store) => TodosPageViewModel(
-              todos: store.state.todos,
-              markComplete: (todo) => (value) {
-                    store.dispatch(MarkTodoCompletedAction(todo: todo));
-                  },
-            ),
-        builder: (context, todosViewModel) => ListView(
-              children: todosViewModel.todos
+      body: StreamBuilder(
+        stream: todosBloc.todos$,
+        builder: (context, AsyncSnapshot<List<Todo>> snapshot) => snapshot.hasData ? ListView(
+              children: snapshot.data
                   .map((todo) => ListTile(
                         leading: Checkbox(
                             value: todo.completed,
-                            onChanged: todosViewModel.markComplete(todo)),
+                            onChanged: todosBloc.markTodo(todo)),
                         title: Text(todo.title,
                             style: todo.completed
                                 ? TextStyle(
@@ -44,7 +41,7 @@ class TodosPage extends StatelessWidget {
                                 : null),
                       ))
                   .toList(),
-            ),
+            ) : Container(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
