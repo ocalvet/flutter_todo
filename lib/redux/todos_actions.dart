@@ -8,7 +8,7 @@ class AddTodoAction {
 
 class FilterTodosAction {}
 
-class MarkTodoCompleteAction {
+class MarkTodoCompletedAction {
   final Todo todo;
-  MarkTodoCompleteAction({this.todo});
+  MarkTodoCompletedAction({this.todo});
 }
