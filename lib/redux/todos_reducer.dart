@@ -24,7 +24,7 @@ TodosAppState todosReducer(TodosAppState state, action) {
     );
   } else if (action is FilterTodosAction) {
     return TodosAppState(
-      allTodos: state.todos,
+      allTodos: state.allTodos,
       showCompleted: !state.showCompleted,
     );
   }
