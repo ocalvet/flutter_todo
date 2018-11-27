@@ -19,3 +19,8 @@ The project is tag at different points for 3 different implementations of managi
 -   [IOS Emulator](https://flutter.io/docs/get-started/install/macos)
 3. Start the flutter application
 `$ flutter run`
+
+## Run test
+1. Run `$ flutter test`
+
+## How to Contribute
