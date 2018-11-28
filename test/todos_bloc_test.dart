@@ -12,9 +12,17 @@ main() {
     expect(bloc.runtimeType == TodosBloc, isTrue);
   });
 
-
-test('should get an empty list of todos', () {
-  expectLater(bloc.todos$, emitsInOrder([]));
-});
-
+  test('should get an empty list of todos', () {
+    expectLater(bloc.todos$, emitsInOrder([[]]));
+  });
+  
+  test('should get list with the newly added todo', () {
+    bloc.addTodo('Test', 'test desc');
+    expectLater(
+        bloc.todos$,
+        emitsInOrder([
+          [],
+          [Todo('Test', 'test desc', false)]
+        ]));
+  });
 }
