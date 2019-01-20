@@ -36,7 +36,6 @@ class TodosBloc {
   }
 
   dispose() {
-    print('disposing');
     _todosSubject.close();
     _showCompleted.close();
   }

@@ -34,6 +34,13 @@ class TodosPage extends StatelessWidget {
                                   ? TextStyle(
                                       decoration: TextDecoration.lineThrough)
                                   : null),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.edit),
+                                    color: Colors.teal,
+                                    onPressed: () {
+                                      print('Editing todo');
+                                    },
+                                  ),
                         ))
                     .toList(),
               )
