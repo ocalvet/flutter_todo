@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/todo.dart';
 import 'package:flutter_todo/todos_bloc.dart';
 
 class EditTodoScreen extends StatefulWidget {
@@ -11,6 +12,12 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
   TextEditingController descCtrl = TextEditingController();
   @override
   void initState() {
+    todosBloc.editingTodo$.take(1).listen((editingTodo) {
+      setState(() {
+        titleCtrl.text = editingTodo.title;
+        descCtrl.text = editingTodo.description;
+      });
+    });
     super.initState();
   }
 
@@ -18,7 +25,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Todo'),
+        title: Text('Edit Todo'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -37,13 +44,24 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          todosBloc.addTodo(titleCtrl.text, descCtrl.text);
-          Navigator.pop(context);
+      floatingActionButton: StreamBuilder(
+        stream: todosBloc.editingTodo$,
+        builder: (BuildContext context, AsyncSnapshot<Todo> snapshot) {
+          if (!snapshot.hasData) return CircularProgressIndicator();
+          Todo editingTodo = snapshot.data;
+          return FloatingActionButton(
+            onPressed: () {
+              todosBloc.updateEditingTodo(Todo(
+                titleCtrl.text,
+                descCtrl.text,
+                editingTodo.completed,
+              ));
+              Navigator.pop(context);
+            },
+            tooltip: 'Update Todo',
+            child: Icon(Icons.update),
+          );
         },
-        tooltip: 'Save Todo',
-        child: Icon(Icons.save),
       ),
     );
   }

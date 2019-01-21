@@ -15,6 +15,12 @@ class TodosBloc {
 
   bool _isNotCompleted(Todo todo) => !todo.completed;
 
+  final BehaviorSubject<Todo> _editingTodo = BehaviorSubject<Todo>();
+  Stream<Todo> get editingTodo$ => _editingTodo.stream;
+  Future<Null> updateEditingTodo(Todo updatedEditingTodo) async {
+    _editingTodo.sink.add(updatedEditingTodo);
+  }
+
   addTodo(title, description) async {
     print('adding todo $title');
     var todos = await this._todosSubject.first;
@@ -41,6 +47,7 @@ class TodosBloc {
   dispose() {
     _todosSubject.close();
     _showCompleted.close();
+    _editingTodo.close();
   }
 }
 
