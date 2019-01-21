@@ -38,7 +38,9 @@ class TodosScreen extends StatelessWidget {
                                     icon: Icon(Icons.edit),
                                     color: Colors.teal,
                                     onPressed: () {
-                                      print('Editing todo');
+                                      print('Editing todo ${todo.title}');
+                                      todosBloc.updateEditingTodo(todo);
+                                      Navigator.pushNamed(context, '/edit-todo');
                                     },
                                   ),
                         ))

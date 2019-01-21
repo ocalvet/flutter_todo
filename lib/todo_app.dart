@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/screens/add_todo_screen.dart';
+import 'package:flutter_todo/screens/edit_todo_screen.dart';
 import 'package:flutter_todo/screens/todos_screen.dart';
 
 class TodoApp extends StatelessWidget {
@@ -14,6 +15,7 @@ class TodoApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => TodosScreen(),
         '/add-todo': (BuildContext context) => AddTodoScreen(),
+        '/edit-todo': (BuildContext context) => EditTodoScreen(),
       },
     );
   }
