@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo/todo.dart';
 import 'package:flutter_todo/todos_bloc.dart';
 
-class TodosPage extends StatelessWidget {
+class TodosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

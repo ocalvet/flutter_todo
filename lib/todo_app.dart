@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/add_todo_page.dart';
-import 'package:flutter_todo/todos_page.dart';
+import 'package:flutter_todo/screens/add_todo_screen.dart';
+import 'package:flutter_todo/screens/todos_screen.dart';
 
 class TodoApp extends StatelessWidget {
   @override
@@ -10,10 +10,10 @@ class TodoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: TodosPage(),
+      home: TodosScreen(),
       routes: <String, WidgetBuilder>{
-        '/home': (BuildContext context) => TodosPage(),
-        '/add-todo': (BuildContext context) => AddTodoPage(),
+        '/home': (BuildContext context) => TodosScreen(),
+        '/add-todo': (BuildContext context) => AddTodoScreen(),
       },
     );
   }

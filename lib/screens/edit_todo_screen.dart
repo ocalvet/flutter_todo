@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/todos_bloc.dart';
 
-class AddTodoPage extends StatefulWidget {
+class EditTodoScreen extends StatefulWidget {
   @override
-  _AddTodoPageState createState() => _AddTodoPageState();
+  _EditTodoScreenState createState() => _EditTodoScreenState();
 }
 
-class _AddTodoPageState extends State<AddTodoPage> {
+class _EditTodoScreenState extends State<EditTodoScreen> {
   TextEditingController titleCtrl = TextEditingController();
   TextEditingController descCtrl = TextEditingController();
   @override
