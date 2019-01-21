@@ -22,5 +22,3 @@ The project is tag at different points for 3 different implementations of managi
 
 ## Run test
 1. Run `$ flutter test`
-
-## How to Contribute
