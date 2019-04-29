@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_todo/authentication.dart';
 import 'package:flutter_todo/todo.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -7,6 +8,12 @@ class TodosBloc {
   TodosBloc() {
     this._addTodo$.listen(this._addTodo);
   }
+
+  final BehaviorSubject<Authentication> _auth =
+      BehaviorSubject(seedValue: Authentication());
+  Observable<Authentication> get auth$ => _auth.stream;
+  Function(Authentication) get authenticate => _auth.sink.add;
+
   final BehaviorSubject<bool> _showCompleted = BehaviorSubject(seedValue: true);
   final BehaviorSubject<List<Todo>> _todosSubject =
       BehaviorSubject<List<Todo>>(seedValue: []);
@@ -56,6 +63,7 @@ class TodosBloc {
     _showCompleted.close();
     _editingTodo.close();
     _addTodo$.close();
+    _auth.close();
   }
 }
 
