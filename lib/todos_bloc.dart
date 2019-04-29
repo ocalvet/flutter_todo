@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 class TodosBloc {
   TodosBloc() {
-    this._addTodo$.listen((todo) => this._addTodo);
+    this._addTodo$.listen(this._addTodo);
   }
   final BehaviorSubject<bool> _showCompleted = BehaviorSubject(seedValue: true);
   final BehaviorSubject<List<Todo>> _todosSubject =
