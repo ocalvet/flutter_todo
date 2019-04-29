@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter_todo/todo.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TodosBloc {
+  TodosBloc() {
+    this._addTodo$.listen((todo) => this._addTodo);
+  }
   final BehaviorSubject<bool> _showCompleted = BehaviorSubject(seedValue: true);
   final BehaviorSubject<List<Todo>> _todosSubject =
       BehaviorSubject<List<Todo>>(seedValue: []);
@@ -10,7 +15,7 @@ class TodosBloc {
       _showCompleted.stream,
       (List<Todo> todos, bool showCompleted) =>
           showCompleted ? todos : todos.where(_isNotCompleted).toList());
-          
+
   Observable<bool> get showCompleted$ => _showCompleted.stream;
 
   bool _isNotCompleted(Todo todo) => !todo.completed;
@@ -21,11 +26,13 @@ class TodosBloc {
     _editingTodo.sink.add(updatedEditingTodo);
   }
 
-  addTodo(title, description) async {
-    print('adding todo $title');
+  final BehaviorSubject<Todo> _addTodo$ = BehaviorSubject<Todo>();
+  Function(Todo) get addTodo => _addTodo$.sink.add;
+
+  _addTodo(Todo todo) async {
+    print('adding todo ${todo.title}');
     var todos = await this._todosSubject.first;
-    List<Todo> newListTodos = List.from(todos)
-      ..add(Todo(title, description, false));
+    List<Todo> newListTodos = List.from(todos)..add(todo);
     _todosSubject.sink.add(newListTodos);
   }
 
@@ -48,6 +55,7 @@ class TodosBloc {
     _todosSubject.close();
     _showCompleted.close();
     _editingTodo.close();
+    _addTodo$.close();
   }
 }
 

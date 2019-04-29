@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/todos_bloc.dart';
 
+import '../todo.dart';
+
 class AddTodoScreen extends StatefulWidget {
   @override
   _AddTodoScreenState createState() => _AddTodoScreenState();
@@ -39,7 +41,11 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          todosBloc.addTodo(titleCtrl.text, descCtrl.text);
+          todosBloc.addTodo(Todo(
+            titleCtrl.text,
+            descCtrl.text,
+            false,
+          ));
           Navigator.pop(context);
         },
         tooltip: 'Save Todo',
