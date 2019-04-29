@@ -15,9 +15,9 @@ main() {
   test('should get an empty list of todos', () {
     expectLater(bloc.todos$, emitsInOrder([[]]));
   });
-  
+
   test('should get list with the newly added todo', () {
-    bloc.addTodo('Test', 'test desc');
+    bloc.addTodo(Todo('Test', 'test desc', false));
     expectLater(
         bloc.todos$,
         emitsInOrder([
