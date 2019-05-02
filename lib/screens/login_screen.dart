@@ -24,8 +24,7 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 todosBloc.authenticate(Authentication(token: '123'));
                 todosBloc.auth$.listen((a) {
-                  print(a);
-                  Navigator.pushReplacementNamed(context, '/');
+                  Navigator.pushReplacementNamed(context, '/todos');
                 });
               },
             )
