@@ -13,12 +13,21 @@ The project is tag at different points for 3 different implementations of managi
 ## How to run project
 
 1. Get the dependencies
-`$ flutter packages get`
+   `$ flutter packages get`
 2. Make sure either you have a device connected or open an emulator
--   [Android Emulator](https://developer.android.com/studio/run/managing-avds)
--   [IOS Emulator](https://flutter.io/docs/get-started/install/macos)
+
+- [Android Emulator](https://developer.android.com/studio/run/managing-avds)
+- [IOS Emulator](https://flutter.io/docs/get-started/install/macos)
+
 3. Start the flutter application
-`$ flutter run`
+   `$ flutter run`
 
 ## Run test
+
 1. Run `$ flutter test`
+
+### TODOS
+
+- Fix editing of an item #NothingWORKS!
+- Persist filter state
+- Add pictures to todos
