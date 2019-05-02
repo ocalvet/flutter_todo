@@ -9,8 +9,7 @@ class TodosBloc {
     this._addTodo$.listen(this._addTodo);
   }
 
-  final BehaviorSubject<Authentication> _auth =
-      BehaviorSubject(seedValue: Authentication());
+  final PublishSubject<Authentication> _auth = PublishSubject();
   Observable<Authentication> get auth$ => _auth.stream;
   Function(Authentication) get authenticate => _auth.sink.add;
 

@@ -40,10 +40,10 @@ class LoginScreen extends StatelessWidget {
                 child: RaisedButton(
                   child: Text('LOGIN'),
                   onPressed: () {
-                    todosBloc.authenticate(Authentication(token: '123'));
                     todosBloc.auth$.listen((a) {
                       Navigator.pushReplacementNamed(context, '/todos');
                     });
+                    todosBloc.authenticate(Authentication(token: '123'));
                   },
                 ),
               )
