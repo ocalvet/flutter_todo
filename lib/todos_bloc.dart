@@ -3,9 +3,21 @@ import 'dart:async';
 import 'package:flutter_todo/authentication.dart';
 import 'package:flutter_todo/todo.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:localstorage/localstorage.dart';
 
 class TodosBloc {
+  final storage = LocalStorage('todos');
+
   TodosBloc() {
+    storage.ready.then((_) {
+      var todos = storage.getItem('todos');
+      if (todos != null) {
+        var list = TodoList.fromJson(todos);
+        this._todosSubject.sink.add(list.todos);
+      }
+      this._todosSubject.listen(
+          (todos) => storage.setItem('todos', TodoList(todos: todos).toJson()));
+    });
     this._addTodo$.listen(this._addTodo);
   }
 
