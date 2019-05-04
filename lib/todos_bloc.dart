@@ -11,17 +11,8 @@ class TodosBloc {
   final todosService = TodoService();
 
   TodosBloc() {
-    storage.ready.then((_) {
-      var todos = storage.getItem('todos');
-      if (todos != null) {
-        var list = TodoList.fromJson(todos);
-        this._todosSubject.sink.add(list.todos);
-      }
-      this._todosSubject.listen(
-          (todos) => storage.setItem('todos', TodoList(todos: todos).toJson()));
-    });
+    storage.ready.then(this._initializeTodos);
     this._addTodo$.listen(this._addTodo);
-    this.todosService.getTodos().then(print);
   }
 
   final PublishSubject<Authentication> _auth = PublishSubject();
@@ -49,6 +40,35 @@ class TodosBloc {
 
   final BehaviorSubject<Todo> _addTodo$ = BehaviorSubject<Todo>();
   Function(Todo) get addTodo => _addTodo$.sink.add;
+
+  _initializeTodos(_) {
+    var storageTodos = storage.getItem('todos');
+    this.todosService.getTodos().then((TodoList todoList) {
+      if (storageTodos != null) {
+        var storageTodoList = TodoList.fromJson(storageTodos);
+        TodoList syncedtodos = TodoList(todos: todoList.todos);
+        storageTodoList.todos.forEach((todo) {
+          if (!todoList.todos.contains(todo)) {
+            syncedtodos.todos.add(todo);
+          }
+        });
+        this._todosSubject.sink.add(syncedtodos.todos);
+      } else {
+        this._todosSubject.sink.add(todoList.todos);
+      }
+      this._todosSubject.listen((todos) {
+        storage.setItem('todos', TodoList(todos: todos).toJson());
+      });
+    }, onError: (_) {
+      if (storageTodos != null) {
+        var storageTodoList = TodoList.fromJson(storageTodos);
+        this._todosSubject.sink.add(storageTodoList.todos);
+      }
+      this._todosSubject.listen((todos) {
+        storage.setItem('todos', TodoList(todos: todos).toJson());
+      });
+    });
+  }
 
   _addTodo(Todo todo) async {
     print('adding todo ${todo.title}');
