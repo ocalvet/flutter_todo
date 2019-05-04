@@ -17,12 +17,13 @@ main() {
   });
 
   test('should get list with the newly added todo', () {
-    bloc.addTodo(Todo('Test', 'test desc', false));
+    bloc.addTodo(
+        Todo(title: 'Test', description: 'test desc', completed: false));
     expectLater(
         bloc.todos$,
         emitsInOrder([
           [],
-          [Todo('Test', 'test desc', false)]
+          [Todo(title: 'Test', description: 'test desc', completed: false)]
         ]));
   });
 }

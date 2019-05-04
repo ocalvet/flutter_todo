@@ -41,10 +41,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          todosBloc.addTodo(Todo(
-            titleCtrl.text,
-            descCtrl.text,
-            false,
+          todosBloc.addTodo(Todo.create(
+            title: titleCtrl.text,
+            description: descCtrl.text,
           ));
           Navigator.pop(context);
         },

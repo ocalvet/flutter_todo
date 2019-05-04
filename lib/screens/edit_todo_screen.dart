@@ -51,10 +51,10 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
           Todo editingTodo = snapshot.data;
           return FloatingActionButton(
             onPressed: () {
-              todosBloc.updateEditingTodo(Todo(
-                titleCtrl.text,
-                descCtrl.text,
-                editingTodo.completed,
+              todosBloc.updateEditingTodo(editingTodo.copyWith(
+                title: titleCtrl.text,
+                description: descCtrl.text,
+                completed: editingTodo.completed,
               ));
               Navigator.pop(context);
             },

@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:flutter_todo/authentication.dart';
 import 'package:flutter_todo/todo.dart';
+import 'package:flutter_todo/todo_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:localstorage/localstorage.dart';
 
 class TodosBloc {
   final storage = LocalStorage('todos');
+  final todosService = TodoService();
 
   TodosBloc() {
     storage.ready.then((_) {
@@ -19,6 +21,7 @@ class TodosBloc {
           (todos) => storage.setItem('todos', TodoList(todos: todos).toJson()));
     });
     this._addTodo$.listen(this._addTodo);
+    this.todosService.getTodos().then(print);
   }
 
   final PublishSubject<Authentication> _auth = PublishSubject();
@@ -63,8 +66,10 @@ class TodosBloc {
     var todos = await this._todosSubject.first;
     var oldTodo = todos.firstWhere((t) => t.title == todo.title);
     var oldTodoIdx = todos.indexOf(oldTodo);
-    todos[oldTodoIdx] =
-        Todo(oldTodo.title, oldTodo.description, !oldTodo.completed);
+    todos[oldTodoIdx] = Todo(
+        title: oldTodo.title,
+        description: oldTodo.description,
+        completed: !oldTodo.completed);
     List<Todo> newListTodos = List.from(todos);
     _todosSubject.sink.add(newListTodos);
   }
