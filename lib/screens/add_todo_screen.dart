@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todo/todos_bloc.dart';
 
 import '../todo.dart';
@@ -18,6 +19,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final TodosBloc _todosBloc = BlocProvider.of<TodosBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Todo'),
@@ -41,10 +43,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          todosBloc.addTodo(Todo.create(
-            title: titleCtrl.text,
-            description: descCtrl.text,
-          ));
+          // todosBloc.addTodo(Todo.create(
+          //   title: titleCtrl.text,
+          //   description: descCtrl.text,
+          // ));
           Navigator.pop(context);
         },
         tooltip: 'Save Todo',

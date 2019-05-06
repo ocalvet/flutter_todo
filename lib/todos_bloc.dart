@@ -1,11 +1,49 @@
 import 'dart:async';
 
-import 'package:flutter_todo/authentication.dart';
-import 'package:flutter_todo/todo.dart';
 import 'package:flutter_todo/todo_service.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:flutter_todo/todos_events.dart';
+import 'package:flutter_todo/todos_state.dart';
+import 'package:bloc/bloc.dart';
 import 'package:localstorage/localstorage.dart';
 
+class TodosBloc extends Bloc<TodosEvent, TodosState> {
+  final LocalStorage storage;
+  final TodoService todosService;
+  TodosBloc({this.storage, this.todosService});
+
+  @override
+  TodosState get initialState => TodosLoading();
+
+  @override
+  Stream<TodosState> mapEventToState(TodosEvent event) async* {
+    if (event is LoadTodos) {
+      yield* _mapLoadTodosToState();
+    }
+    // else if (event is AddTodo) {
+    //   yield* _mapAddTodoToState(event);
+    // } else if (event is UpdateTodo) {
+    //   yield* _mapUpdateTodoToState(event);
+    // } else if (event is DeleteTodo) {
+    //   yield* _mapDeleteTodoToState(event);
+    // } else if (event is ToggleAll) {
+    //   yield* _mapToggleAllToState();
+    // } else if (event is ClearCompleted) {
+    //   yield* _mapClearCompletedToState();
+    // }
+  }
+
+  Stream<TodosState> _mapLoadTodosToState() async* {
+    try {
+      final todos = await this.todosService.getTodos();
+      yield TodosLoaded(
+        todos.todos,
+      );
+    } catch (_) {
+      yield TodosNotLoaded();
+    }
+  }
+}
+/*
 class TodosBloc {
   final storage = LocalStorage('todos');
   final todosService = TodoService();
@@ -105,3 +143,4 @@ class TodosBloc {
 }
 
 TodosBloc todosBloc = TodosBloc();
+*/

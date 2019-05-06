@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = Uuid();
@@ -23,31 +25,25 @@ class TodoList {
   }
 }
 
-class Todo {
-  final String id;
-  final String title;
-  final String description;
+@immutable
+class Todo extends Equatable {
   final bool completed;
-  Todo({this.id, this.title, this.description, this.completed});
+  final String id;
+  final String description;
+  final String title;
 
-  factory Todo.create({String title, String description, bool completed}) {
-    Todo newTodo = Todo(
-      id: uuid.v4(),
-      title: title ?? 'Empty title',
-      description: description ?? 'Empty description',
-      completed: false,
-    );
-    return newTodo;
-  }
+  Todo(this.title, {this.completed = false, String description = '', String id})
+      : this.description = description ?? '',
+        this.id = id ?? Uuid().v4(),
+        super([completed, id, description, title]);
 
-  Todo copyWith({String title, String description, bool completed}) {
-    Todo newTodo = Todo(
-      id: this.id,
-      title: title ?? this.title,
-      description: description ?? this.description,
+  Todo copyWith({bool completed, String id, String description, String title}) {
+    return Todo(
+      title ?? this.title,
       completed: completed ?? this.completed,
+      id: id ?? this.id,
+      description: description ?? this.description,
     );
-    return newTodo;
   }
 
   Todo.fromJson(Map<String, dynamic> json)
@@ -78,4 +74,9 @@ class Todo {
           title == other.title &&
           description == other.description &&
           completed == other.completed;
+
+  @override
+  String toString() {
+    return 'Todo { completed: $completed, title: $title, description: $description, id: $id }';
+  }
 }
