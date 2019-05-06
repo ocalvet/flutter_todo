@@ -19,9 +19,10 @@ class TodosBloc {
   Observable<Authentication> get auth$ => _auth.stream;
   Function(Authentication) get authenticate => _auth.sink.add;
 
-  final BehaviorSubject<bool> _showCompleted = BehaviorSubject(seedValue: true);
+  final BehaviorSubject<bool> _showCompleted =
+      BehaviorSubject<bool>.seeded(true);
   final BehaviorSubject<List<Todo>> _todosSubject =
-      BehaviorSubject<List<Todo>>(seedValue: []);
+      BehaviorSubject<List<Todo>>.seeded([]);
   Observable<List<Todo>> get todos$ => Observable.combineLatest2(
       _todosSubject.stream,
       _showCompleted.stream,
