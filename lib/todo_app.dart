@@ -16,7 +16,13 @@ class TodoApp extends StatefulWidget {
 class _TodoAppState extends State<TodoApp> {
   final storage = LocalStorage('todos');
   final todosService = TodoService();
-  final TodosBloc _bloc = TodosBloc();
+  TodosBloc _bloc;
+  @override
+  void initState() {
+    _bloc = TodosBloc(storage: storage, todosService: todosService);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TodosBloc>(
