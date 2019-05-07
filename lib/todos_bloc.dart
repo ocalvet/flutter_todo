@@ -24,12 +24,11 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
       case UpdateTodo:
         yield* _mapUpdateTodoToState(event.props[0]);
         break;
+      case AddTodo:
+        yield* _mapAddTodoToState(event.props[0]);
+        break;
     }
 
-    // else if (event is AddTodo) {
-    //   yield* _mapAddTodoToState(event);
-    // } else if (event is UpdateTodo) {
-    //   yield* _mapUpdateTodoToState(event);
     // } else if (event is DeleteTodo) {
     //   yield* _mapDeleteTodoToState(event);
     // } else if (event is ToggleAll) {
@@ -57,6 +56,19 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
         if (t.id == todo.id) return todo.copyWith();
         return t.copyWith();
       }).toList();
+      yield TodosLoaded(
+        newTodos,
+      );
+    } catch (_) {
+      yield TodosNotLoaded();
+    }
+  }
+
+  Stream<TodosState> _mapAddTodoToState(Todo todo) async* {
+    try {
+      final List<Todo> todos = (await this.state.first).props[0];
+      List<Todo> newTodos = List<Todo>.from(todos);
+      newTodos.add(todo);
       yield TodosLoaded(
         newTodos,
       );

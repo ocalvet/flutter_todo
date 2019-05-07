@@ -8,7 +8,6 @@ class TodosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TodosBloc _todosBloc = BlocProvider.of<TodosBloc>(context);
-    _todosBloc.dispatch(LoadTodos());
     return Scaffold(
       appBar: AppBar(
         title: Text('Todos'),

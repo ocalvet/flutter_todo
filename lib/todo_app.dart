@@ -5,6 +5,7 @@ import 'package:flutter_todo/screens/login_screen.dart';
 import 'package:flutter_todo/screens/todos_screen.dart';
 import 'package:flutter_todo/todo_service.dart';
 import 'package:flutter_todo/todos_bloc.dart';
+import 'package:flutter_todo/todos_events.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +21,7 @@ class _TodoAppState extends State<TodoApp> {
   @override
   void initState() {
     _bloc = TodosBloc(storage: storage, todosService: todosService);
+    _bloc.dispatch(LoadTodos());
     super.initState();
   }
 
