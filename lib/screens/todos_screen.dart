@@ -32,7 +32,8 @@ class TodosScreen extends StatelessWidget {
                         leading: Checkbox(
                             value: todo.completed,
                             onChanged: (val) => _todosBloc.dispatch(
-                                  CompleteTodo(todo),
+                                  UpdateTodo(todo.copyWith(
+                                      completed: !todo.completed)),
                                 ) // todosBloc.markTodo(todo),
                             ),
                         title: Text(todo.title,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_todo/todo.dart';
 import 'package:flutter_todo/todo_service.dart';
 import 'package:flutter_todo/todos_events.dart';
 import 'package:flutter_todo/todos_state.dart';
@@ -16,9 +17,15 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
 
   @override
   Stream<TodosState> mapEventToState(TodosEvent event) async* {
-    if (event is LoadTodos) {
-      yield* _mapLoadTodosToState();
+    switch (event.runtimeType) {
+      case LoadTodos:
+        yield* _mapLoadTodosToState();
+        break;
+      case UpdateTodo:
+        yield* _mapUpdateTodoToState(event.props[0]);
+        break;
     }
+
     // else if (event is AddTodo) {
     //   yield* _mapAddTodoToState(event);
     // } else if (event is UpdateTodo) {
@@ -37,6 +44,21 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
       final todos = await this.todosService.getTodos();
       yield TodosLoaded(
         todos.todos,
+      );
+    } catch (_) {
+      yield TodosNotLoaded();
+    }
+  }
+
+  Stream<TodosState> _mapUpdateTodoToState(Todo todo) async* {
+    try {
+      final List<Todo> todos = (await this.state.first).props[0];
+      List<Todo> newTodos = todos.map((t) {
+        if (t.id == todo.id) return todo.copyWith();
+        return t.copyWith();
+      }).toList();
+      yield TodosLoaded(
+        newTodos,
       );
     } catch (_) {
       yield TodosNotLoaded();

@@ -44,14 +44,6 @@ class ClearCompleted extends TodosEvent {
   String toString() => 'ClearCompleted';
 }
 
-class CompleteTodo extends TodosEvent {
-  final Todo todo;
-
-  CompleteTodo(this.todo) : super([todo]);
-  @override
-  String toString() => 'CompleteTodo { todo: $todo }';
-}
-
 class ToggleAll extends TodosEvent {
   @override
   String toString() => 'ToggleAll';
