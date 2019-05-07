@@ -39,12 +39,7 @@ class DeleteTodo extends TodosEvent {
   String toString() => 'DeleteTodo { todo: $todo }';
 }
 
-class ClearCompleted extends TodosEvent {
+class ToggleCompleted extends TodosEvent {
   @override
-  String toString() => 'ClearCompleted';
-}
-
-class ToggleAll extends TodosEvent {
-  @override
-  String toString() => 'ToggleAll';
+  String toString() => 'ToggleCompleted';
 }

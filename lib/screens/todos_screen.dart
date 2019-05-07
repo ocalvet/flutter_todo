@@ -14,7 +14,7 @@ class TodosScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.filter_list),
-              onPressed: () => _todosBloc.dispatch(ToggleAll())),
+              onPressed: () => _todosBloc.dispatch(ToggleCompleted())),
         ],
       ),
       body: BlocBuilder<TodosEvent, TodosState>(
