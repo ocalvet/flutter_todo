@@ -8,7 +8,6 @@ import 'package:flutter_todo/storage_provider.dart';
 import 'package:flutter_todo/todo_repository.dart';
 import 'package:flutter_todo/todos_bloc.dart';
 import 'package:flutter_todo/todos_events.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TodoApp extends StatefulWidget {

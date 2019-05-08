@@ -70,7 +70,7 @@ class TodosScreen extends StatelessWidget {
         },
         tooltip: 'Add Todo',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
