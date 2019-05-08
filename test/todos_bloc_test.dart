@@ -1,6 +1,5 @@
-import 'package:flutter_todo/todo.dart';
+import 'package:flutter_todo/todos/todos_bloc.dart';
 import 'package:test/test.dart';
-import 'package:flutter_todo/todos_bloc.dart';
 
 main() {
   TodosBloc bloc;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_todo/todo_app.dart';
-import 'package:flutter_todo/screens/todos_screen.dart';
+import 'package:flutter_todo/todos/screens/todos_screen.dart';
 
 void main() {
   testWidgets('Finds the MaterialApp widget', (WidgetTester tester) async {
@@ -12,5 +12,4 @@ void main() {
     await tester.pumpWidget(TodoApp());
     expect(find.byType(TodosScreen), findsOneWidget);
   });
-
 }

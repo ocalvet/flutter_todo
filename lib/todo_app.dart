@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/http_provider.dart';
-import 'package:flutter_todo/screens/add_todo_screen.dart';
-import 'package:flutter_todo/screens/edit_todo_screen.dart';
-import 'package:flutter_todo/screens/login_screen.dart';
-import 'package:flutter_todo/screens/todos_screen.dart';
-import 'package:flutter_todo/storage_provider.dart';
-import 'package:flutter_todo/todo_repository.dart';
-import 'package:flutter_todo/todos_bloc.dart';
-import 'package:flutter_todo/todos_events.dart';
+import 'package:flutter_todo/authentication/screens/login_screen.dart';
+import 'package:flutter_todo/shared/http_provider.dart';
+import 'package:flutter_todo/shared/storage_provider.dart';
+import 'package:flutter_todo/todos/screens/add_todo_screen.dart';
+import 'package:flutter_todo/todos/screens/edit_todo_screen.dart';
+import 'package:flutter_todo/todos/screens/todos_screen.dart';
+import 'package:flutter_todo/todos/todo_repository.dart';
+import 'package:flutter_todo/todos/todos_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todo/todos/todos_events.dart';
 
 class TodoApp extends StatefulWidget {
   @override
