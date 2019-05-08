@@ -89,33 +89,3 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     }
   }
 }
-/*
-  _initializeTodos(_) {
-    var storageTodos = storage.getItem('todos');
-    this.todosRepository.getTodos().then((TodoList todoList) {
-      if (storageTodos != null) {
-        var storageTodoList = TodoList.fromJson(storageTodos);
-        TodoList syncedtodos = TodoList(todos: todoList.todos);
-        storageTodoList.todos.forEach((todo) {
-          if (!todoList.todos.contains(todo)) {
-            syncedtodos.todos.add(todo);
-          }
-        });
-        this._todosSubject.sink.add(syncedtodos.todos);
-      } else {
-        this._todosSubject.sink.add(todoList.todos);
-      }
-      this._todosSubject.listen((todos) {
-        storage.setItem('todos', TodoList(todos: todos).toJson());
-      });
-    }, onError: (_) {
-      if (storageTodos != null) {
-        var storageTodoList = TodoList.fromJson(storageTodos);
-        this._todosSubject.sink.add(storageTodoList.todos);
-      }
-      this._todosSubject.listen((todos) {
-        storage.setItem('todos', TodoList(todos: todos).toJson());
-      });
-    });
-  }
-*/
