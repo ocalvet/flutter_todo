@@ -6,6 +6,7 @@ import 'package:flutter_todo/todo.dart';
 import 'package:meta/meta.dart';
 
 class TodoRepository {
+  static const String STORAGE_KEY = 'todos';
   final HttpProvider http;
   final StorageProvider storage;
   final String apiUrl = "http://localhost:6000/api/todos";
@@ -13,13 +14,14 @@ class TodoRepository {
   TodoRepository({@required this.http, @required this.storage});
 
   Future<TodoList> getTodos() async {
-    var storageTodos = storage.getAll('todos');
-    List<Map<String, dynamic>> serverTodos;
+    var storageTodos = await storage.getAll(STORAGE_KEY);
+    List serverTodos;
     List<Todo> todos = List<Todo>();
     try {
       serverTodos = await this.http.getAll('$apiUrl');
-    } catch (_) {
-      serverTodos = List<Map<String, dynamic>>();
+    } catch (e) {
+      print(e);
+      serverTodos = List();
     }
     if (serverTodos.length > 0) {
       serverTodos.forEach((todoJson) => todos.add(Todo.fromJson(todoJson)));
@@ -32,9 +34,12 @@ class TodoRepository {
           syncedtodos.todos.add(todo);
         }
       });
+      storage.save(STORAGE_KEY, syncedtodos.toJson());
       return syncedtodos;
     } else {
-      return TodoList(todos: todos);
+      var serverList = TodoList(todos: todos);
+      storage.save(STORAGE_KEY, serverList.toJson());
+      return serverList;
     }
   }
 }
