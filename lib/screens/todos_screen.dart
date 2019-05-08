@@ -24,7 +24,7 @@ class TodosScreen extends StatelessWidget {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is TodosLoaded) {
+          } else if (state is TodosLoaded && state.todos.length > 0) {
             return ListView(
               children: state.todos
                   .map((todo) => ListTile(

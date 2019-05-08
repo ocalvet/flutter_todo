@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/http_provider.dart';
 import 'package:flutter_todo/screens/add_todo_screen.dart';
 import 'package:flutter_todo/screens/edit_todo_screen.dart';
 import 'package:flutter_todo/screens/login_screen.dart';
 import 'package:flutter_todo/screens/todos_screen.dart';
-import 'package:flutter_todo/todo_service.dart';
+import 'package:flutter_todo/storage_provider.dart';
+import 'package:flutter_todo/todo_repository.dart';
 import 'package:flutter_todo/todos_bloc.dart';
 import 'package:flutter_todo/todos_events.dart';
 import 'package:localstorage/localstorage.dart';
@@ -15,12 +17,14 @@ class TodoApp extends StatefulWidget {
 }
 
 class _TodoAppState extends State<TodoApp> {
-  final storage = LocalStorage('todos');
-  final todosService = TodoService();
   TodosBloc _bloc;
   @override
   void initState() {
-    _bloc = TodosBloc(storage: storage, todosService: todosService);
+    StorageProvider _storage = StorageProvider();
+    HttpProvider _http = HttpProvider();
+    TodoRepository _todosRepository =
+        TodoRepository(http: _http, storage: _storage);
+    _bloc = TodosBloc(todosRepository: _todosRepository);
     _bloc.dispatch(LoadTodos());
     super.initState();
   }

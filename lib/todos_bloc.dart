@@ -1,16 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_todo/todo.dart';
-import 'package:flutter_todo/todo_service.dart';
+import 'package:flutter_todo/todo_repository.dart';
 import 'package:flutter_todo/todos_events.dart';
 import 'package:flutter_todo/todos_state.dart';
 import 'package:bloc/bloc.dart';
-import 'package:localstorage/localstorage.dart';
 
 class TodosBloc extends Bloc<TodosEvent, TodosState> {
-  final LocalStorage storage;
-  final TodoService todosService;
-  TodosBloc({this.storage, this.todosService});
+  final TodoRepository todosRepository;
+  TodosBloc({this.todosRepository});
 
   @override
   TodosState get initialState => TodosLoading();
@@ -31,19 +29,11 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
         yield* _mapToggleCompletedToState();
         break;
     }
-
-    // } else if (event is DeleteTodo) {
-    //   yield* _mapDeleteTodoToState(event);
-    // } else if (event is ToggleAll) {
-    //   yield* _mapToggleAllToState();
-    // } else if (event is ClearCompleted) {
-    //   yield* _mapClearCompletedToState();
-    // }
   }
 
   Stream<TodosState> _mapLoadTodosToState() async* {
     try {
-      final todos = await this.todosService.getTodos();
+      final todos = await this.todosRepository.getTodos();
       yield TodosLoaded(
         todos.todos,
       );
@@ -100,45 +90,9 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   }
 }
 /*
-class TodosBloc {
-  final storage = LocalStorage('todos');
-  final todosService = TodoService();
-
-  TodosBloc() {
-    storage.ready.then(this._initializeTodos);
-    this._addTodo$.listen(this._addTodo);
-  }
-
-  final PublishSubject<Authentication> _auth = PublishSubject();
-  Observable<Authentication> get auth$ => _auth.stream;
-  Function(Authentication) get authenticate => _auth.sink.add;
-
-  final BehaviorSubject<bool> _showCompleted =
-      BehaviorSubject<bool>.seeded(true);
-  final BehaviorSubject<List<Todo>> _todosSubject =
-      BehaviorSubject<List<Todo>>.seeded([]);
-  Observable<List<Todo>> get todos$ => Observable.combineLatest2(
-      _todosSubject.stream,
-      _showCompleted.stream,
-      (List<Todo> todos, bool showCompleted) =>
-          showCompleted ? todos : todos.where(_isNotCompleted).toList());
-
-  Observable<bool> get showCompleted$ => _showCompleted.stream;
-
-  bool _isNotCompleted(Todo todo) => !todo.completed;
-
-  final BehaviorSubject<Todo> _editingTodo = BehaviorSubject<Todo>();
-  Stream<Todo> get editingTodo$ => _editingTodo.stream;
-  Future<Null> updateEditingTodo(Todo updatedEditingTodo) async {
-    _editingTodo.sink.add(updatedEditingTodo);
-  }
-
-  final BehaviorSubject<Todo> _addTodo$ = BehaviorSubject<Todo>();
-  Function(Todo) get addTodo => _addTodo$.sink.add;
-
   _initializeTodos(_) {
     var storageTodos = storage.getItem('todos');
-    this.todosService.getTodos().then((TodoList todoList) {
+    this.todosRepository.getTodos().then((TodoList todoList) {
       if (storageTodos != null) {
         var storageTodoList = TodoList.fromJson(storageTodos);
         TodoList syncedtodos = TodoList(todos: todoList.todos);
@@ -164,39 +118,4 @@ class TodosBloc {
       });
     });
   }
-
-  _addTodo(Todo todo) async {
-    print('adding todo ${todo.title}');
-    var todos = await this._todosSubject.first;
-    List<Todo> newListTodos = List.from(todos)..add(todo);
-    _todosSubject.sink.add(newListTodos);
-  }
-
-  filterTodos() async {
-    var showCompleted = await this._showCompleted.first;
-    _showCompleted.sink.add(!showCompleted);
-  }
-
-  markTodo(Todo todo) async {
-    var todos = await this._todosSubject.first;
-    var oldTodo = todos.firstWhere((t) => t.title == todo.title);
-    var oldTodoIdx = todos.indexOf(oldTodo);
-    todos[oldTodoIdx] = Todo(
-        title: oldTodo.title,
-        description: oldTodo.description,
-        completed: !oldTodo.completed);
-    List<Todo> newListTodos = List.from(todos);
-    _todosSubject.sink.add(newListTodos);
-  }
-
-  dispose() {
-    _todosSubject.close();
-    _showCompleted.close();
-    _editingTodo.close();
-    _addTodo$.close();
-    _auth.close();
-  }
-}
-
-TodosBloc todosBloc = TodosBloc();
 */
