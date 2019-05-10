@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todo/authentication/authentication_bloc.dart';
+import 'package:flutter_todo/authentication/authentication_event.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -44,6 +45,7 @@ class LoginScreen extends StatelessWidget {
                     child: RaisedButton(
                       child: Text('LOGIN'),
                       onPressed: () {
+                        _authBloc.dispatch(LoggedIn(token: '123'));
                         Navigator.pushReplacementNamed(context, '/todos');
                         // todosBloc.auth$.listen((a) {
                         //   Navigator.pushReplacementNamed(context, '/todos');
