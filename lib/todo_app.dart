@@ -35,8 +35,8 @@ class _TodoAppState extends State<TodoApp> {
   Widget build(BuildContext context) {
     return BlocProviderTree(
       blocProviders: [
-        BlocProvider(bloc: _bloc),
-        BlocProvider(bloc: _authBloc),
+        BlocProvider<TodosBloc>(bloc: _bloc),
+        BlocProvider<AuthenticationBloc>(bloc: _authBloc),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

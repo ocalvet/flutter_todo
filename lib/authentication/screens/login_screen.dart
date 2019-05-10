@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todo/authentication/authentication_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthenticationBloc _authBloc = BlocProvider.of<AuthenticationBloc>(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30),
@@ -33,18 +36,23 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: double.infinity,
-                child: RaisedButton(
-                  child: Text('LOGIN'),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/todos');
-                    // todosBloc.auth$.listen((a) {
-                    //   Navigator.pushReplacementNamed(context, '/todos');
-                    // });
-                    // todosBloc.authenticate(Authentication(token: '123'));
-                  },
-                ),
+              BlocBuilder(
+                bloc: _authBloc,
+                builder: (BuildContext context, state) {
+                  return SizedBox(
+                    width: double.infinity,
+                    child: RaisedButton(
+                      child: Text('LOGIN'),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/todos');
+                        // todosBloc.auth$.listen((a) {
+                        //   Navigator.pushReplacementNamed(context, '/todos');
+                        // });
+                        // todosBloc.authenticate(Authentication(token: '123'));
+                      },
+                    ),
+                  );
+                },
               )
             ],
           ),
