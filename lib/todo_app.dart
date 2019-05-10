@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/authentication/authentication_bloc.dart';
 import 'package:flutter_todo/authentication/screens/login_screen.dart';
 import 'package:flutter_todo/shared/http_provider.dart';
 import 'package:flutter_todo/shared/storage_provider.dart';
@@ -17,6 +18,7 @@ class TodoApp extends StatefulWidget {
 
 class _TodoAppState extends State<TodoApp> {
   TodosBloc _bloc;
+  AuthenticationBloc _authBloc;
   @override
   void initState() {
     StorageProvider _storage = StorageProvider();
@@ -25,13 +27,17 @@ class _TodoAppState extends State<TodoApp> {
         TodoRepository(http: _http, storage: _storage);
     _bloc = TodosBloc(todosRepository: _todosRepository);
     _bloc.dispatch(LoadTodos());
+    _authBloc = AuthenticationBloc();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TodosBloc>(
-      bloc: _bloc,
+    return BlocProviderTree(
+      blocProviders: [
+        BlocProvider(bloc: _bloc),
+        BlocProvider(bloc: _authBloc),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'TodoAPP',
