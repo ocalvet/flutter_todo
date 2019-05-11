@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todo/todos/edit_todo/edit_todo_bloc.dart';
+import 'package:flutter_todo/todos/edit_todo/edit_todo_events.dart';
 import 'package:flutter_todo/todos/todos_bloc.dart';
 import 'package:flutter_todo/todos/todos_events.dart';
 import 'package:flutter_todo/todos/todos_state.dart';
@@ -8,6 +10,7 @@ class TodosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TodosBloc _todosBloc = BlocProvider.of<TodosBloc>(context);
+    final EditTodoBloc _editTodoBloc = BlocProvider.of<EditTodoBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Todos'),
@@ -50,7 +53,8 @@ class TodosScreen extends StatelessWidget {
                           color: Colors.teal,
                           onPressed: () {
                             print('Editing todo ${todo.title}');
-                            _todosBloc.dispatch(UpdateTodo(todo));
+                            // _todosBloc.dispatch(UpdateTodo(todo));
+                            _editTodoBloc.dispatch(EditTodo(todo: todo));
                             Navigator.pushNamed(context, '/edit-todo');
                           },
                         ),

@@ -10,6 +10,10 @@ class EditTodoBloc extends Bloc<EditTodoEvent, EditTodoState> {
 
   @override
   Stream<EditTodoState> mapEventToState(EditTodoEvent event) async* {
-    yield InitialEditTodo();
+    if (event is EditTodo) {
+      yield EditingTodo(todo: event.todo);
+    } else {
+      yield InitialEditTodo();
+    }
   }
 }

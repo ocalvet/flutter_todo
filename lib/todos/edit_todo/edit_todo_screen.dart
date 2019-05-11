@@ -22,9 +22,9 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
       titleCtrl.text = state.todo.title;
       descCtrl.text = state.todo.description;
     }
-    // _editTodoBloc.onEvent((EditTodoEvent event) {
-    //   print(event);
-    // });
+    _editTodoBloc.event.listen((EditTodoEvent event) {
+      // print(event);
+    });
     super.initState();
   }
 
