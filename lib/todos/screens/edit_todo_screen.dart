@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todo/todos/todos_bloc.dart';
+import 'package:flutter_todo/todos/edit_todo/edit_todo_bloc.dart';
+import 'package:flutter_todo/todos/edit_todo/edit_todo_events.dart';
+import 'package:flutter_todo/todos/edit_todo/edit_todo_state.dart';
+import 'package:flutter_todo/todos/todo.dart';
 
 class EditTodoScreen extends StatefulWidget {
   @override
@@ -10,20 +13,23 @@ class EditTodoScreen extends StatefulWidget {
 class _EditTodoScreenState extends State<EditTodoScreen> {
   TextEditingController titleCtrl = TextEditingController();
   TextEditingController descCtrl = TextEditingController();
+  EditTodoBloc _editTodoBloc;
   @override
   void initState() {
-    // todosBloc.editingTodo$.take(1).listen((editingTodo) {
-    //   setState(() {
-    //     titleCtrl.text = editingTodo.title;
-    //     descCtrl.text = editingTodo.description;
-    //   });
+    _editTodoBloc = BlocProvider.of<EditTodoBloc>(context);
+    if (_editTodoBloc.currentState is EditingTodo) {
+      EditingTodo state = (_editTodoBloc.currentState as EditingTodo);
+      titleCtrl.text = state.todo.title;
+      descCtrl.text = state.todo.description;
+    }
+    // _editTodoBloc.onEvent((EditTodoEvent event) {
+    //   print(event);
     // });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final TodosBloc _todosBloc = BlocProvider.of<TodosBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Todo'),
@@ -45,25 +51,29 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
           ],
         ),
       ),
-      // floatingActionButton: StreamBuilder(
-      //   stream: todosBloc.editingTodo$,
-      //   builder: (BuildContext context, AsyncSnapshot<Todo> snapshot) {
-      //     if (!snapshot.hasData) return CircularProgressIndicator();
-      //     Todo editingTodo = snapshot.data;
-      //     return FloatingActionButton(
-      //       onPressed: () {
-      //         todosBloc.updateEditingTodo(editingTodo.copyWith(
-      //           title: titleCtrl.text,
-      //           description: descCtrl.text,
-      //           completed: editingTodo.completed,
-      //         ));
-      //         Navigator.pop(context);
-      //       },
-      //       tooltip: 'Update Todo',
-      //       child: Icon(Icons.update),
-      //     );
-      //   },
-      // ),
+      floatingActionButton: BlocBuilder(
+        bloc: _editTodoBloc,
+        builder: (BuildContext context, EditTodoState state) {
+          if (state is InitialEditTodo) {
+            return CircularProgressIndicator();
+          } else {
+            EditingTodo currentState = (state as EditingTodo);
+            Todo editingTodo = currentState.todo;
+            return FloatingActionButton(
+              onPressed: () {
+                _editTodoBloc.dispatch(UpdateEditingTodo(
+                    todo: editingTodo.copyWith(
+                  title: titleCtrl.text,
+                  description: descCtrl.text,
+                )));
+                Navigator.pop(context);
+              },
+              tooltip: 'Update Todo',
+              child: Icon(Icons.update),
+            );
+          }
+        },
+      ),
     );
   }
 }

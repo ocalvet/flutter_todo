@@ -33,7 +33,6 @@ class _TodoAppState extends State<TodoApp> {
     _bloc.dispatch(LoadTodos());
     _authBloc = AuthenticationBloc();
     _editTodoBloc = EditTodoBloc();
-    _editTodoBloc.dispatch(EditTodo(todo: Todo("Test Todo")));
     super.initState();
   }
 

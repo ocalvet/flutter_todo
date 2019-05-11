@@ -10,3 +10,9 @@ class InitialEditTodo extends EditTodoState {
   InitialEditTodo() : super([]);
   toString() => 'InitialEditTodo';
 }
+
+class EditingTodo extends EditTodoState {
+  final Todo todo;
+  EditingTodo({@required this.todo}) : super([todo]);
+  toString() => 'EditingTodo';
+}

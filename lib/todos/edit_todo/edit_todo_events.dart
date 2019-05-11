@@ -14,16 +14,13 @@ class EditTodo extends EditTodoEvent {
   toString() => 'EditTodo ${todo.id}';
 }
 
-class UpdateTodoField extends EditTodoEvent {
-  final String field;
-  final String value;
-  UpdateTodoField({
-    @required this.field,
-    @required this.value,
+class UpdateEditingTodo extends EditTodoEvent {
+  final Todo todo;
+  UpdateEditingTodo({
+    @required this.todo,
   }) : super([
-          field,
-          value,
+          todo,
         ]);
   toString() =>
-      'UpdateTodoField field "${this.field}" and value "${this.value}"';
+      'UpdateEditingTodo with title "${this.todo.title}" and description "${this.todo.description}"';
 }
