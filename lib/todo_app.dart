@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/authentication/authentication_bloc.dart';
+import 'package:flutter_todo/login/login_bloc.dart';
 import 'package:flutter_todo/login/login_screen.dart';
 import 'package:flutter_todo/shared/http_provider.dart';
 import 'package:flutter_todo/shared/storage_provider.dart';
@@ -21,6 +22,7 @@ class _TodoAppState extends State<TodoApp> {
   TodosBloc _bloc;
   AuthenticationBloc _authBloc;
   EditTodoBloc _editTodoBloc;
+  LoginBloc _loginBloc;
   @override
   void initState() {
     StorageProvider _storage = StorageProvider();
@@ -31,6 +33,7 @@ class _TodoAppState extends State<TodoApp> {
     _bloc.dispatch(LoadTodos());
     _authBloc = AuthenticationBloc();
     _editTodoBloc = EditTodoBloc();
+    _loginBloc = LoginBloc();
     super.initState();
   }
 
@@ -41,6 +44,7 @@ class _TodoAppState extends State<TodoApp> {
         BlocProvider<TodosBloc>(bloc: _bloc),
         BlocProvider<AuthenticationBloc>(bloc: _authBloc),
         BlocProvider<EditTodoBloc>(bloc: _editTodoBloc),
+        BlocProvider<LoginBloc>(bloc: _loginBloc),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

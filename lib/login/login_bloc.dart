@@ -13,6 +13,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is Login) {
       try {
         yield LoggingIn();
+        print(event.model.username);
+        print(event.model.password);
         yield LoggedIn(token: 'skj34hdjkfhdjk42fhdkjsfhjkf');
       } catch (e) {
         print('ERROR');
