@@ -48,7 +48,7 @@ class _TodoAppState extends State<TodoApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'TodoAPP',
+        title: 'TodoApp',
         theme: ThemeData(
           primarySwatch: Colors.teal,
         ),
