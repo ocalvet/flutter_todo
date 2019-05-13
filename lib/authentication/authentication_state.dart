@@ -20,8 +20,3 @@ class AuthenticationUnauthenticated extends AuthenticationState {
   @override
   String toString() => 'AuthenticationUnauthenticated';
 }
-
-class AuthenticationLoading extends AuthenticationState {
-  @override
-  String toString() => 'AuthenticationLocating';
-}

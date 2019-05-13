@@ -33,7 +33,7 @@ class _TodoAppState extends State<TodoApp> {
     _bloc.dispatch(LoadTodos());
     _authBloc = AuthenticationBloc();
     _editTodoBloc = EditTodoBloc();
-    _loginBloc = LoginBloc();
+    _loginBloc = LoginBloc(authenticationBloc: _authBloc);
     super.initState();
   }
 

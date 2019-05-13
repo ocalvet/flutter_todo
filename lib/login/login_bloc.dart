@@ -1,10 +1,18 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter_todo/authentication/authentication_bloc.dart';
+import 'package:flutter_todo/authentication/authentication_event.dart';
 import 'package:flutter_todo/login/login_events.dart';
 import 'package:flutter_todo/login/login_states.dart';
+import 'package:meta/meta.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  final AuthenticationBloc authenticationBloc;
+
+  LoginBloc({@required this.authenticationBloc})
+      : assert(authenticationBloc != null);
+
   @override
   LoginState get initialState => InitialLogin();
 
@@ -15,7 +23,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield LoggingIn();
         print(event.model.username);
         print(event.model.password);
-        yield LoggedIn(token: 'skj34hdjkfhdjk42fhdkjsfhjkf');
+        String token = '123';
+        this.authenticationBloc.dispatch(LoggedIn(token: token));
+        yield LoginDone();
       } catch (e) {
         print('ERROR');
         print(e);

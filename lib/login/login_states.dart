@@ -13,10 +13,8 @@ class LoggingIn extends LoginState {
   toString() => 'LoggingIn';
 }
 
-class LoggedIn extends LoginState {
-  final String token;
-  LoggedIn({this.token}) : super([token]);
-  toString() => 'LoggedIn token: ${this.token}';
+class LoginDone extends LoginState {
+  toString() => 'LoginDone';
 }
 
 class LoginFailed extends LoginState {
