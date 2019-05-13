@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todo/login/login_bloc.dart';
 import 'package:flutter_todo/login/login_events.dart';
 import 'package:flutter_todo/login/login_model.dart';
+import 'package:flutter_todo/login/login_states.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -51,22 +52,32 @@ class _LoginScreenState extends State<LoginScreen> {
               BlocBuilder(
                 bloc: _bloc,
                 builder: (BuildContext context, state) {
-                  return SizedBox(
-                    width: double.infinity,
-                    child: RaisedButton(
-                      child: Text('LOGIN'),
-                      onPressed: () {
-                        _bloc.dispatch(
-                          Login(
-                            model: LoginModel(
-                              username: userNameCtrl.text,
-                              password: passwordNameCtrl.text,
-                            ),
-                          ),
-                        );
-                        // Navigator.pushReplacementNamed(context, '/todos');
-                      },
-                    ),
+                  return Column(
+                    children: <Widget>[
+                      SizedBox(
+                        width: double.infinity,
+                        child: RaisedButton(
+                          child: Text('LOGIN'),
+                          onPressed: state is! LoggingIn
+                              ? () {
+                                  _bloc.dispatch(
+                                    Login(
+                                      model: LoginModel(
+                                        username: userNameCtrl.text,
+                                        password: passwordNameCtrl.text,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              : null,
+                        ),
+                      ),
+                      Container(
+                        child: state is LoggingIn
+                            ? CircularProgressIndicator()
+                            : null,
+                      ),
+                    ],
                   );
                 },
               )

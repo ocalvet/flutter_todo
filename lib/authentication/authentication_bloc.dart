@@ -19,7 +19,6 @@ class AuthenticationBloc
 
     if (event is LoggedIn) {
       // await userRepository.persistToken(event.token);
-      await Future.delayed(Duration(seconds: 2));
       yield AuthenticationAuthenticated();
     }
 
