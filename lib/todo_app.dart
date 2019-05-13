@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/authentication/authentication_bloc.dart';
+import 'package:flutter_todo/authentication/authentication_event.dart';
+import 'package:flutter_todo/authentication/authentication_state.dart';
 import 'package:flutter_todo/login/login_bloc.dart';
 import 'package:flutter_todo/login/login_screen.dart';
 import 'package:flutter_todo/shared/http_provider.dart';
@@ -53,7 +55,29 @@ class _TodoAppState extends State<TodoApp> {
           primarySwatch: Colors.teal,
         ),
         routes: <String, WidgetBuilder>{
-          '/': (BuildContext context) => LoginScreen(),
+          '/': (BuildContext context) =>
+              BlocBuilder<AuthenticationEvent, AuthenticationState>(
+                bloc: _authBloc,
+                builder: (BuildContext context, AuthenticationState state) {
+                  print('where');
+                  if (state is AuthenticationUninitialized) {
+                    return Center(
+                      child: Text('Splash'),
+                    );
+                  }
+                  if (state is AuthenticationAuthenticated) {
+                    return TodosScreen();
+                  }
+                  if (state is AuthenticationUnauthenticated) {
+                    return LoginScreen();
+                  }
+                  if (state is AuthenticationLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
           '/todos': (BuildContext context) => TodosScreen(),
           '/add-todo': (BuildContext context) => AddTodoScreen(),
           '/edit-todo': (BuildContext context) => EditTodoScreen(),
