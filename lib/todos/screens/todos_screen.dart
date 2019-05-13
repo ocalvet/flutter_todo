@@ -16,8 +16,9 @@ class TodosScreen extends StatelessWidget {
         title: Text('Todos'),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.filter_list),
-              onPressed: () => _todosBloc.dispatch(ToggleCompleted())),
+            icon: Icon(Icons.filter_list),
+            onPressed: () => _todosBloc.dispatch(ToggleCompleted()),
+          ),
         ],
       ),
       body: BlocBuilder<TodosEvent, TodosState>(
@@ -34,10 +35,10 @@ class TodosScreen extends StatelessWidget {
                         leading: Checkbox(
                             value: todo.completed,
                             onChanged: (val) => _todosBloc.dispatch(
-                                  UpdateTodo(todo.copyWith(
-                                      completed: !todo.completed)),
-                                ) // todosBloc.markTodo(todo),
-                            ),
+                                  UpdateTodo(
+                                    todo.copyWith(completed: !todo.completed),
+                                  ),
+                                )),
                         title: Text(todo.title,
                             style: todo.completed
                                 ? TextStyle(
@@ -52,8 +53,6 @@ class TodosScreen extends StatelessWidget {
                           icon: Icon(Icons.edit),
                           color: Colors.teal,
                           onPressed: () {
-                            print('Editing todo ${todo.title}');
-                            // _todosBloc.dispatch(UpdateTodo(todo));
                             _editTodoBloc.dispatch(EditTodo(todo: todo));
                             Navigator.pushNamed(context, '/edit-todo');
                           },
