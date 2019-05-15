@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 
 class TodosBloc extends Bloc<TodosEvent, TodosState> {
   final TodoRepository todosRepository;
+  // bool _showCompleted = true;
   TodosBloc({this.todosRepository});
 
   @override
@@ -31,9 +32,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   Stream<TodosState> _mapLoadTodosToState() async* {
     try {
       final todos = await this.todosRepository.getTodos();
-      yield TodosLoaded(
-        todos.todos,
-      );
+      yield TodosLoaded(todos.todos);
     } catch (_) {
       yield TodosNotLoaded();
     }
@@ -47,9 +46,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
           if (t.id == todo.id) return todo.copyWith();
           return t.copyWith();
         }).toList();
-        yield TodosLoaded(
-          newTodos,
-        );
+        yield TodosLoaded(newTodos);
       }
     } catch (_) {
       yield TodosNotLoaded();
@@ -62,9 +59,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
         final List<Todo> todos = (currentState as TodosLoaded).todos;
         List<Todo> newTodos = List<Todo>.from(todos);
         newTodos.add(todo);
-        yield TodosLoaded(
-          newTodos,
-        );
+        yield TodosLoaded(newTodos);
       }
     } catch (_) {
       yield TodosNotLoaded();
@@ -75,11 +70,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     try {
       if (currentState is TodosLoaded) {
         final List<Todo> todos = (currentState as TodosLoaded).todos;
-        final state = currentState;
-        print(state.props);
-        yield TodosLoaded(
-          state.props[0],
-        );
+        yield TodosLoaded(todos);
       }
     } catch (_) {
       yield TodosNotLoaded();
