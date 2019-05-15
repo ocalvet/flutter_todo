@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/authentication/authentication_bloc.dart';
-import 'package:flutter_todo/authentication/authentication_event.dart';
-import 'package:flutter_todo/authentication/authentication_state.dart';
+import 'package:flutter_todo/authentication/authentication.dart';
 import 'package:flutter_todo/login/login_bloc.dart';
 import 'package:flutter_todo/login/login_screen.dart';
 import 'package:flutter_todo/shared/http_provider.dart';
