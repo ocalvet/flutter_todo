@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_todo/authentication/authentication_event.dart';
-import 'package:flutter_todo/authentication/authentication_state.dart';
+import 'package:flutter_todo/authentication/authentication.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
