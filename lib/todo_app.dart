@@ -3,13 +3,10 @@ import 'package:flutter_todo/authentication/authentication.dart';
 import 'package:flutter_todo/login/login.dart';
 import 'package:flutter_todo/shared/http_provider.dart';
 import 'package:flutter_todo/shared/storage_provider.dart';
-import 'package:flutter_todo/todos/edit_todo/edit_todo.dart';
-import 'package:flutter_todo/todos/screens/add_todo_screen.dart';
-import 'package:flutter_todo/todos/screens/todos_screen.dart';
-import 'package:flutter_todo/todos/todo_repository.dart';
-import 'package:flutter_todo/todos/todos_bloc.dart';
+import 'package:flutter_todo/add_todo/add_todo_screen.dart';
+import 'package:flutter_todo/edit_todo/edit_todo.dart';
+import 'package:flutter_todo/todos/todos.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todo/todos/todos_events.dart';
 
 class TodoApp extends StatefulWidget {
   @override

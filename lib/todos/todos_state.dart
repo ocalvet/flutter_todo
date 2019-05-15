@@ -1,4 +1,4 @@
-import 'package:flutter_todo/todos/todo.dart';
+import 'package:flutter_todo/todos/todos.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 

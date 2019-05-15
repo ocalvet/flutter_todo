@@ -1,9 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_todo/todos/todo.dart';
-import 'package:flutter_todo/todos/todo_repository.dart';
-import 'package:flutter_todo/todos/todos_events.dart';
-import 'package:flutter_todo/todos/todos_state.dart';
+import 'package:flutter_todo/todos/todos.dart';
 import 'package:bloc/bloc.dart';
 
 class TodosBloc extends Bloc<TodosEvent, TodosState> {

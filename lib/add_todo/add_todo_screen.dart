@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todo/todos/todos.dart';
 import 'package:flutter_todo/todos/todos_bloc.dart';
 import 'package:flutter_todo/todos/todos_events.dart';
-
-import '../todo.dart';
 
 class AddTodoScreen extends StatefulWidget {
   @override

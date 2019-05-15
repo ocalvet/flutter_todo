@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todo/todos/edit_todo/edit_todo.dart';
-import 'package:flutter_todo/todos/todos_bloc.dart';
-import 'package:flutter_todo/todos/todos_events.dart';
-import 'package:flutter_todo/todos/todos_state.dart';
+import 'package:flutter_todo/edit_todo/edit_todo.dart';
+import 'package:flutter_todo/todos/todos.dart';
 
 class TodosScreen extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todo/todos/edit_todo/edit_todo.dart';
-import 'package:flutter_todo/todos/todo.dart';
+import 'package:flutter_todo/edit_todo/edit_todo.dart';
+import 'package:flutter_todo/todos/todos.dart';
 
 class EditTodoScreen extends StatefulWidget {
   @override
@@ -12,6 +12,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
   TextEditingController titleCtrl = TextEditingController();
   TextEditingController descCtrl = TextEditingController();
   EditTodoBloc _editTodoBloc;
+
   @override
   void initState() {
     _editTodoBloc = BlocProvider.of<EditTodoBloc>(context);
@@ -20,9 +21,6 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
       titleCtrl.text = state.todo.title;
       descCtrl.text = state.todo.description;
     }
-    _editTodoBloc.event.listen((EditTodoEvent event) {
-      // print(event);
-    });
     super.initState();
   }
 
