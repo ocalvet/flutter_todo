@@ -28,13 +28,17 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
           children: <Widget>[
             TextField(
               controller: titleCtrl,
-              decoration:
-                  InputDecoration(labelText: 'Title', hintText: 'Enter title'),
+              decoration: InputDecoration(
+                labelText: 'Title',
+                hintText: 'Enter title',
+              ),
             ),
             TextField(
               controller: descCtrl,
               decoration: InputDecoration(
-                  labelText: 'Description', hintText: 'Enter description'),
+                labelText: 'Description',
+                hintText: 'Enter description',
+              ),
             ),
           ],
         ),

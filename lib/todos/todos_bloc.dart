@@ -36,8 +36,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
       allTodos = todos.todos;
       yield TodosLoaded(allTodos);
     } catch (e) {
-      print(e);
-      yield TodosNotLoaded();
+      yield TodosLoadError('Error loading todos');
     }
   }
 
@@ -53,7 +52,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
       }
     } catch (e) {
       print(e);
-      yield TodosNotLoaded();
+      yield TodosLoadError('Error updating todo');
     }
   }
 
@@ -67,7 +66,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
       }
     } catch (e) {
       print(e);
-      yield TodosNotLoaded();
+      yield TodosLoadError('Error adding todo');
     }
   }
 
@@ -82,7 +81,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
       }
     } catch (e) {
       print(e);
-      yield TodosNotLoaded();
+      yield TodosLoadError('Error toggling visibility');
     }
   }
 }

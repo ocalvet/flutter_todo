@@ -57,11 +57,14 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
             Todo editingTodo = currentState.todo;
             return FloatingActionButton(
               onPressed: () {
-                _editTodoBloc.dispatch(UpdateEditingTodo(
+                _editTodoBloc.dispatch(
+                  UpdateEditingTodo(
                     todo: editingTodo.copyWith(
-                  title: titleCtrl.text,
-                  description: descCtrl.text,
-                )));
+                      title: titleCtrl.text,
+                      description: descCtrl.text,
+                    ),
+                  ),
+                );
                 Navigator.pop(context);
               },
               tooltip: 'Update Todo',

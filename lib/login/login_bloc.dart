@@ -19,16 +19,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is Login) {
       try {
         yield LoggingIn();
-        print(event.model.username);
-        print(event.model.password);
         await Future.delayed(Duration(seconds: 2));
         String token = '123';
         this.authenticationBloc.dispatch(LoggedIn(token: token));
         yield LoginDone();
       } catch (e) {
-        print('ERROR');
-        print(e);
-        yield LoginFailed(error: 'Some error');
+        yield LoginFailed(error: 'Wrong username or password');
       }
     }
     ;

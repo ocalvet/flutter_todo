@@ -21,7 +21,10 @@ class TodosLoaded extends TodosState {
   String toString() => 'TodosLoaded { todos: $todos }';
 }
 
-class TodosNotLoaded extends TodosState {
+class TodosLoadError extends TodosState {
+  final String error;
+
+  TodosLoadError(this.error) : super([error]);
   @override
-  String toString() => 'TodosNotLoaded';
+  String toString() => 'TodosLoadError: $error';
 }

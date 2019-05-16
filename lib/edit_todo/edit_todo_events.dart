@@ -18,9 +18,7 @@ class UpdateEditingTodo extends EditTodoEvent {
   final Todo todo;
   UpdateEditingTodo({
     @required this.todo,
-  }) : super([
-          todo,
-        ]);
+  }) : super([todo]);
   toString() =>
       'UpdateEditingTodo with title "${this.todo.title}" and description "${this.todo.description}"';
 }
