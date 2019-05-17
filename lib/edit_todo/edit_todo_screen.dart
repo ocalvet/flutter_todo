@@ -36,13 +36,17 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
           children: <Widget>[
             TextField(
               controller: titleCtrl,
-              decoration:
-                  InputDecoration(labelText: 'Title', hintText: 'Enter title'),
+              decoration: InputDecoration(
+                labelText: 'Title',
+                hintText: 'Enter title',
+              ),
             ),
             TextField(
               controller: descCtrl,
               decoration: InputDecoration(
-                  labelText: 'Description', hintText: 'Enter description'),
+                labelText: 'Description',
+                hintText: 'Enter description',
+              ),
             ),
           ],
         ),
@@ -68,7 +72,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                 Navigator.pop(context);
               },
               tooltip: 'Update Todo',
-              child: Icon(Icons.update),
+              child: Icon(Icons.save),
             );
           }
         },

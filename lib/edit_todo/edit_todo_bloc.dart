@@ -11,6 +11,8 @@ class EditTodoBloc extends Bloc<EditTodoEvent, EditTodoState> {
   Stream<EditTodoState> mapEventToState(EditTodoEvent event) async* {
     if (event is EditTodo) {
       yield EditingTodo(todo: event.todo);
+    } else if (event is UpdateEditingTodo) {
+      print('updating todo ---');
     } else {
       yield InitialEditTodo();
     }
