@@ -30,6 +30,5 @@ The project is tag at different points for 3 different implementations of managi
 
 ### TODOS
 
-- Fix editing of an item #NothingWORKS!
 - Persist filter state
 - Add pictures to todos

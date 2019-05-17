@@ -27,7 +27,7 @@ class _TodoAppState extends State<TodoApp> {
     _bloc = TodosBloc(todosRepository: _todosRepository);
     _bloc.dispatch(LoadTodos());
     _authBloc = AuthenticationBloc();
-    _editTodoBloc = EditTodoBloc();
+    _editTodoBloc = EditTodoBloc(_bloc);
     _loginBloc = LoginBloc(authenticationBloc: _authBloc);
     super.initState();
   }

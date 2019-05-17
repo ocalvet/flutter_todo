@@ -19,9 +19,11 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
         yield* _mapLoadTodosToState();
         break;
       case UpdateTodo:
-        yield* _mapUpdateTodoToState(event.props[0]);
+        Todo updatedTodo = (event as UpdateTodo).todo;
+        yield* _mapUpdateTodoToState(updatedTodo);
         break;
       case AddTodo:
+        Todo addedTodo = (event as AddTodo).todo;
         yield* _mapAddTodoToState(event.props[0]);
         break;
       case ToggleCompleted:

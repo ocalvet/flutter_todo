@@ -22,12 +22,12 @@ class AddTodo extends TodosEvent {
 }
 
 class UpdateTodo extends TodosEvent {
-  final Todo updatedTodo;
+  final Todo todo;
 
-  UpdateTodo(this.updatedTodo) : super([updatedTodo]);
+  UpdateTodo(this.todo) : super([todo]);
 
   @override
-  String toString() => 'UpdateTodo { updatedTodo: $updatedTodo }';
+  String toString() => 'UpdateTodo { todo: $todo }';
 }
 
 class DeleteTodo extends TodosEvent {
