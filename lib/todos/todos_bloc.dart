@@ -36,7 +36,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     try {
       final todos = await this.todosRepository.getTodos();
       allTodos = todos.todos;
-      yield TodosLoaded(allTodos);
+      yield TodosLoaded(allTodos, _showCompleted);
     } catch (e) {
       yield TodosLoadError('Error loading todos');
     }
@@ -50,7 +50,8 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
           if (t.id == todo.id) return todo.copyWith();
           return t.copyWith();
         }).toList();
-        yield TodosLoaded(newTodos);
+        allTodos = newTodos;
+        yield TodosLoaded(newTodos, _showCompleted);
       }
     } catch (e) {
       print(e);
@@ -64,7 +65,8 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
         final List<Todo> todos = (currentState as TodosLoaded).todos;
         List<Todo> newTodos = List<Todo>.from(todos);
         newTodos.add(todo);
-        yield TodosLoaded(newTodos);
+        allTodos = newTodos;
+        yield TodosLoaded(newTodos, _showCompleted);
       }
     } catch (e) {
       print(e);
@@ -73,13 +75,11 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   }
 
   Stream<TodosState> _mapToggleCompletedToState() async* {
+    print('toggling todo');
     try {
       if (currentState is TodosLoaded) {
         _showCompleted = !_showCompleted;
-        final List<Todo> todos = allTodos.where((todo) {
-          return _showCompleted ? true : !todo.completed;
-        }).toList();
-        yield TodosLoaded(todos);
+        yield TodosLoaded(allTodos, _showCompleted);
       }
     } catch (e) {
       print(e);

@@ -14,8 +14,15 @@ class TodosLoading extends TodosState {
 
 class TodosLoaded extends TodosState {
   final List<Todo> todos;
+  final bool showCompleted;
 
-  TodosLoaded(this.todos) : super([todos]);
+  TodosLoaded(
+    this.todos,
+    this.showCompleted,
+  ) : super([todos, showCompleted]);
+
+  List<Todo> get filteredTodos =>
+      todos.where((todo) => showCompleted ? true : !todo.completed).toList();
 
   @override
   String toString() => 'TodosLoaded { todos: $todos }';
