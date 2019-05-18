@@ -17,8 +17,6 @@ class EditTodoBloc extends Bloc<EditTodoEvent, EditTodoState> {
     if (event is EditTodo) {
       yield EditingTodo(todo: event.todo);
     } else if (event is UpdateEditingTodo) {
-      // TODO connect to the todos bloc to update todo
-      print('updating todo ---');
       todosBloc.dispatch(UpdateTodo(event.todo));
     } else {
       yield InitialEditTodo();

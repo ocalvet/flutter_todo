@@ -30,5 +30,8 @@ The project is tag at different points for 3 different implementations of managi
 
 ### TODOS
 
+- Fix sync
 - Persist filter state
 - Add pictures to todos
+- Connect login to AzureAD
+-

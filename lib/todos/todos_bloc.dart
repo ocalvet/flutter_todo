@@ -24,7 +24,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
         break;
       case AddTodo:
         Todo addedTodo = (event as AddTodo).todo;
-        yield* _mapAddTodoToState(event.props[0]);
+        yield* _mapAddTodoToState(addedTodo);
         break;
       case ToggleCompleted:
         yield* _mapToggleCompletedToState();
