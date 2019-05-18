@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todo/login/login.dart';
 
@@ -15,17 +17,27 @@ class _LoginScreenState extends State<LoginScreen> {
     LoginBloc _bloc = BlocProvider.of<LoginBloc>(context);
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.symmetric(horizontal: 40),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Welcome',
-                style: Theme.of(context).textTheme.title,
+                'Todos Login',
+                style: Theme.of(context).textTheme.display1.copyWith(
+                      color: Colors.blueAccent.shade700,
+                    ),
               ),
               SizedBox(
-                height: 30,
+                height: 20,
+              ),
+              Icon(
+                Icons.lock,
+                size: 34,
+                color: Colors.red.shade400,
+              ),
+              SizedBox(
+                height: 20,
               ),
               TextField(
                 controller: userNameCtrl,
@@ -44,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: true,
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               BlocBuilder(
                 bloc: _bloc,
@@ -53,7 +65,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <Widget>[
                       SizedBox(
                         width: double.infinity,
-                        child: RaisedButton(
+                        child: MaterialButton(
+                          color: Colors.blueAccent.shade700,
+                          textColor: Colors.white,
+                          height: 50,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.horizontal(
+                              left: Radius.circular(25),
+                              right: Radius.circular(25),
+                            ),
+                          ),
                           child: Text('LOGIN'),
                           onPressed: state is! LoggingIn
                               ? () {
