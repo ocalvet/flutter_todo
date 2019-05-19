@@ -27,6 +27,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield LoginFailed(error: 'Wrong username or password');
       }
     }
-    ;
   }
 }
