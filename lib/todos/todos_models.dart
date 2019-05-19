@@ -4,9 +4,9 @@ import 'package:uuid/uuid.dart';
 
 var uuid = Uuid();
 
-class TodoList {
+class TodoList extends Equatable {
   List<Todo> todos;
-  TodoList({this.todos});
+  TodoList({this.todos}) : super([todos]);
   TodoList.fromJson(Map<String, dynamic> json) {
     if (json['todos'] != null) {
       todos = List<Todo>();
@@ -60,20 +60,6 @@ class Todo extends Equatable {
     data['completed'] = this.completed;
     return data;
   }
-
-  @override
-  bool operator ==(
-    Object other,
-  ) =>
-      identical(
-        this,
-        other,
-      ) ||
-      other is Todo &&
-          id == other.id &&
-          title == other.title &&
-          description == other.description &&
-          completed == other.completed;
 
   @override
   String toString() {
