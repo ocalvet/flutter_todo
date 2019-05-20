@@ -1,4 +1,4 @@
-import 'package:flutter_todo/todos/todos.dart';
+import 'package:flutter_todo/models/models.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 

@@ -1,6 +1,6 @@
-import 'package:flutter_todo/todos/todos.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_todo/models/models.dart';
 
 abstract class EditTodoState extends Equatable {
   EditTodoState([List props = const []]) : super([props]);

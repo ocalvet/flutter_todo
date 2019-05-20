@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_todo/shared/http_provider.dart';
 import 'package:flutter_todo/shared/storage_provider.dart';
-import 'package:flutter_todo/todos/todos.dart';
+import 'package:flutter_todo/models/models.dart';
 import 'package:meta/meta.dart';
 
 class TodoRepository {

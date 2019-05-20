@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todo/edit_todo/edit_todo.dart';
-import 'package:flutter_todo/todos/todos.dart';
+import 'package:flutter_todo/models/models.dart';
 
 class EditTodoScreen extends StatefulWidget {
   @override

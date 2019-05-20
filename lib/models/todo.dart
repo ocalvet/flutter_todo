@@ -1,29 +1,9 @@
+import 'package:flutter_todo/models/models.dart';
+import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = Uuid();
-
-class TodoList extends Equatable {
-  List<Todo> todos;
-  TodoList({this.todos}) : super([todos]);
-  TodoList.fromJson(Map<String, dynamic> json) {
-    if (json['todos'] != null) {
-      todos = List<Todo>();
-      json['todos'].forEach((v) {
-        todos.add(Todo.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.todos != null) {
-      data['todos'] = this.todos.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
 
 @immutable
 class Todo extends Equatable {
@@ -78,31 +58,5 @@ class Todo extends Equatable {
   @override
   String toString() {
     return 'Todo { completed: $completed, title: $title, description: $description, id: $id }';
-  }
-}
-
-class ImageModel extends Equatable {
-  String title;
-  String description;
-  String diskLocation;
-  String networkUrl;
-
-  ImageModel(
-      {this.title, this.description, this.diskLocation, this.networkUrl});
-
-  ImageModel.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    description = json['description'];
-    diskLocation = json['diskLocation'];
-    networkUrl = json['networkUrl'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['diskLocation'] = this.diskLocation;
-    data['networkUrl'] = this.networkUrl;
-    return data;
   }
 }
