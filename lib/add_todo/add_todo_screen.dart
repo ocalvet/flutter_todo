@@ -10,6 +10,12 @@ class AddTodoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Todo'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.camera),
+            onPressed: () {},
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
