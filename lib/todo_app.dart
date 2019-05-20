@@ -8,16 +8,19 @@ import 'package:flutter_todo/edit_todo/edit_todo.dart';
 import 'package:flutter_todo/todos/todos.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'add_todo/bloc/bloc.dart';
+
 class TodoApp extends StatefulWidget {
   @override
   _TodoAppState createState() => _TodoAppState();
 }
 
 class _TodoAppState extends State<TodoApp> {
-  TodosBloc _bloc;
   AuthenticationBloc _authBloc;
-  EditTodoBloc _editTodoBloc;
   LoginBloc _loginBloc;
+  TodosBloc _bloc;
+  AddTodoBloc _addTodoBloc;
+  EditTodoBloc _editTodoBloc;
   @override
   void initState() {
     StorageProvider _storage = StorageProvider();
@@ -27,6 +30,7 @@ class _TodoAppState extends State<TodoApp> {
     _bloc = TodosBloc(todosRepository: _todosRepository);
     _bloc.dispatch(LoadTodos());
     _authBloc = AuthenticationBloc();
+    _addTodoBloc = AddTodoBloc(_bloc);
     _editTodoBloc = EditTodoBloc(_bloc);
     _loginBloc = LoginBloc(authenticationBloc: _authBloc);
     super.initState();
@@ -36,10 +40,11 @@ class _TodoAppState extends State<TodoApp> {
   Widget build(BuildContext context) {
     return BlocProviderTree(
       blocProviders: [
-        BlocProvider<TodosBloc>(bloc: _bloc),
         BlocProvider<AuthenticationBloc>(bloc: _authBloc),
-        BlocProvider<EditTodoBloc>(bloc: _editTodoBloc),
         BlocProvider<LoginBloc>(bloc: _loginBloc),
+        BlocProvider<TodosBloc>(bloc: _bloc),
+        BlocProvider<AddTodoBloc>(bloc: _addTodoBloc),
+        BlocProvider<EditTodoBloc>(bloc: _editTodoBloc),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -81,7 +86,11 @@ class _TodoAppState extends State<TodoApp> {
 
   @override
   void dispose() {
+    _authBloc.dispose();
+    _loginBloc.dispose();
     _bloc.dispose();
+    _addTodoBloc.dispose();
+    _editTodoBloc.dispose();
     super.dispose();
   }
 }

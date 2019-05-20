@@ -1,55 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todo/todos/todos.dart';
-import 'package:flutter_todo/models/models.dart';
+import 'package:flutter_todo/add_todo/bloc/bloc.dart';
+import 'package:flutter_todo/add_todo/components/add_todo_form.dart';
 
-class AddTodoScreen extends StatefulWidget {
-  @override
-  _AddTodoScreenState createState() => _AddTodoScreenState();
-}
-
-class _AddTodoScreenState extends State<AddTodoScreen> {
-  TextEditingController titleCtrl = TextEditingController();
-  TextEditingController descCtrl = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class AddTodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TodosBloc _todosBloc = BlocProvider.of<TodosBloc>(context);
+    final AddTodoBloc _addTodoBloc = BlocProvider.of<AddTodoBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Todo'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        child: ListView(
-          children: <Widget>[
-            TextField(
-              controller: titleCtrl,
-              decoration: InputDecoration(
-                labelText: 'Title',
-                hintText: 'Enter title',
-              ),
-            ),
-            TextField(
-              controller: descCtrl,
-              decoration: InputDecoration(
-                labelText: 'Description',
-                hintText: 'Enter description',
-              ),
-            ),
-          ],
-        ),
+        child: AddTodoForm(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _todosBloc.dispatch(AddTodo(Todo(
-            titleCtrl.text,
-            description: descCtrl.text,
-          )));
+          _addTodoBloc.dispatch(AddTodoSave());
           Navigator.pop(context);
         },
         tooltip: 'Save Todo',
