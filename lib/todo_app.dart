@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/authentication/authentication.dart';
 import 'package:flutter_todo/login/login.dart';
+import 'package:flutter_todo/photo_manager/photo_manager_screen.dart';
 import 'package:flutter_todo/shared/http_provider.dart';
 import 'package:flutter_todo/shared/storage_provider.dart';
 import 'package:flutter_todo/add_todo/add_todo_screen.dart';
@@ -79,6 +80,7 @@ class _TodoAppState extends State<TodoApp> {
           '/todos': (BuildContext context) => TodosScreen(),
           '/add-todo': (BuildContext context) => AddTodoScreen(),
           '/edit-todo': (BuildContext context) => EditTodoScreen(),
+          '/manage-photos': (BuildContext context) => PhotoManagerScreen(),
         },
       ),
     );
