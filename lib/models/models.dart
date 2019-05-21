@@ -1,3 +1,3 @@
-export './image_model.dart';
+export './photo_info.dart';
 export './todo.dart';
 export './todo_list.dart';

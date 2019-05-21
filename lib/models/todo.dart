@@ -11,16 +11,16 @@ class Todo extends Equatable {
   final String id;
   final String description;
   final String title;
-  final ImageModel image;
+  final PhotoInfo image;
 
   Todo(this.title,
       {this.completed = false,
       String description = '',
       String id,
-      ImageModel image})
+      PhotoInfo image})
       : this.description = description ?? '',
         this.id = id ?? Uuid().v4(),
-        this.image = image ?? ImageModel(),
+        this.image = image ?? PhotoInfo(),
         super([completed, id, description, title]);
 
   Todo copyWith(
@@ -28,13 +28,13 @@ class Todo extends Equatable {
       String id,
       String description,
       String title,
-      ImageModel image}) {
+      PhotoInfo image}) {
     return Todo(
       title ?? this.title,
       completed: completed ?? this.completed,
       id: id ?? this.id,
       description: description ?? this.description,
-      image: image ?? ImageModel(),
+      image: image ?? PhotoInfo(),
     );
   }
 
@@ -43,7 +43,7 @@ class Todo extends Equatable {
         title = json['title'],
         description = json['description'],
         completed = json['completed'],
-        image = ImageModel.fromJson(json['imageInfo']);
+        image = PhotoInfo.fromJson(json['imageInfo']);
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();

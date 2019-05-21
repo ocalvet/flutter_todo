@@ -1,15 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-class ImageModel extends Equatable {
+class PhotoInfo extends Equatable {
   String title;
   String description;
   String diskLocation;
   String networkUrl;
 
-  ImageModel(
-      {this.title, this.description, this.diskLocation, this.networkUrl});
+  PhotoInfo({this.title, this.description, this.diskLocation, this.networkUrl});
 
-  ImageModel.fromJson(Map<String, dynamic> json) {
+  PhotoInfo.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     description = json['description'];
     diskLocation = json['diskLocation'];
