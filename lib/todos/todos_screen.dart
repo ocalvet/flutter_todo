@@ -15,6 +15,12 @@ class TodosScreen extends StatelessWidget {
             icon: Icon(Icons.filter_list),
             onPressed: () => _todosBloc.dispatch(ToggleCompleted()),
           ),
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              print('sign out');
+            },
+          ),
         ],
       ),
       body: BlocBuilder<TodosEvent, TodosState>(
