@@ -13,7 +13,9 @@ class AddTodoScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.camera),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/manage-photos');
+            },
           )
         ],
       ),
