@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 class PhotoManagerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Text('Manage Photos here'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Photos'),
+      ),
+      body: Center(
+        child: Container(
+          child: Text('Manage Photos here'),
+        ),
       ),
     );
   }
