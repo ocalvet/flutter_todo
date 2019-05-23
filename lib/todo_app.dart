@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/authentication/authentication.dart';
 import 'package:flutter_todo/login/login.dart';
+import 'package:flutter_todo/photo_manager/bloc/photo_manager_bloc.dart';
 import 'package:flutter_todo/photo_manager/photo_manager_screen.dart';
 import 'package:flutter_todo/shared/http_provider.dart';
 import 'package:flutter_todo/shared/storage_provider.dart';
@@ -22,6 +23,7 @@ class _TodoAppState extends State<TodoApp> {
   TodosBloc _bloc;
   AddTodoBloc _addTodoBloc;
   EditTodoBloc _editTodoBloc;
+  PhotoManagerBloc _photoManagerBloc;
   @override
   void initState() {
     StorageProvider _storage = StorageProvider();
@@ -34,6 +36,7 @@ class _TodoAppState extends State<TodoApp> {
     _addTodoBloc = AddTodoBloc(_bloc);
     _editTodoBloc = EditTodoBloc(_bloc);
     _loginBloc = LoginBloc(authenticationBloc: _authBloc);
+    _photoManagerBloc = PhotoManagerBloc();
     super.initState();
   }
 
@@ -46,6 +49,7 @@ class _TodoAppState extends State<TodoApp> {
         BlocProvider<TodosBloc>(bloc: _bloc),
         BlocProvider<AddTodoBloc>(bloc: _addTodoBloc),
         BlocProvider<EditTodoBloc>(bloc: _editTodoBloc),
+        BlocProvider<PhotoManagerBloc>(bloc: _photoManagerBloc),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -93,6 +97,7 @@ class _TodoAppState extends State<TodoApp> {
     _bloc.dispose();
     _addTodoBloc.dispose();
     _editTodoBloc.dispose();
+    _photoManagerBloc.dispose();
     super.dispose();
   }
 }
