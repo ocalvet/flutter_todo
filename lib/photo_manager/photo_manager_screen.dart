@@ -5,12 +5,17 @@ class PhotoManagerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Photos'),
+        title: Text('Manage Photos'),
       ),
-      body: Center(
-        child: Container(
-          child: Text('Manage Photos here'),
-        ),
+      body: Column(
+        children: <Widget>[
+          Center(
+            child: RaisedButton(
+              onPressed: () {},
+              child: Text('Take Picture'),
+            ),
+          ),
+        ],
       ),
     );
   }
