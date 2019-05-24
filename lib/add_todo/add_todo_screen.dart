@@ -16,7 +16,7 @@ class AddTodoScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, '/manage-photos');
             },
-          )
+          ),
         ],
       ),
       body: Padding(

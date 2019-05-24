@@ -29,6 +29,14 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Todo'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.camera),
+            onPressed: () {
+              Navigator.pushNamed(context, '/manage-photos');
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
