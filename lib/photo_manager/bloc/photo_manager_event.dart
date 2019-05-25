@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_todo/models/models.dart';
 import 'package:meta/meta.dart';
 
@@ -14,6 +13,6 @@ class LoadPhotos extends PhotoManagerEvent {
 }
 
 class AddPhoto extends PhotoManagerEvent {
-  final ImageInfo photo;
+  final PhotoInfo photo;
   AddPhoto(this.photo) : super([photo]);
 }
