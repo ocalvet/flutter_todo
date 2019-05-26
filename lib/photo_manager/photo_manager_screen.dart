@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todo/models/photo_info.dart';
+import 'package:flutter_todo/models/models.dart';
 import 'package:flutter_todo/photo_manager/bloc/bloc.dart';
 
 class PhotoManagerScreen extends StatelessWidget {
@@ -21,6 +21,25 @@ class PhotoManagerScreen extends StatelessWidget {
               child: Text('Take Photo'),
             ),
           ),
+          Expanded(
+            child: BlocBuilder(
+              bloc: photosBloc,
+              builder: (BuildContext context, PhotoManagerState state) {
+                if (state is LoadedPhotosState) {
+                  return ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        child: Text(state.photos[index].title),
+                      );
+                    },
+                    itemCount: state.photos.length,
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+            ),
+          )
         ],
       ),
     );
