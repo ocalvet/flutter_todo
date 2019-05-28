@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todo/authentication/authentication.dart';
 import 'package:flutter_todo/todos/components/todo_card.dart';
 import 'package:flutter_todo/todos/todos.dart';
 
@@ -7,6 +8,8 @@ class TodosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TodosBloc _todosBloc = BlocProvider.of<TodosBloc>(context);
+    final AuthenticationBloc _authBloc =
+        BlocProvider.of<AuthenticationBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Todos'),
@@ -18,7 +21,7 @@ class TodosScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () {
-              print('sign out');
+              _authBloc.dispatch(LoggedOut());
             },
           ),
         ],
